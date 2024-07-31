@@ -1,0 +1,28 @@
+.app-container {
+  display: grid;
+  grid-template-areas: 
+  "h h"
+  "n c";
+  grid-template-rows: 60px 1fr;
+  grid-template-columns: 1fr 10fr;
+  width: 1280px;
+}
+
+.header {
+  background-color: antiquewhite;
+  grid-area: h;
+
+  > img {
+    width: 24px;
+  }
+}
+
+.nav {
+  background-color: beige;
+  grid-area: n;
+}
+
+.content {
+  background-color: whitesmoke;
+  grid-area: c;
+}
