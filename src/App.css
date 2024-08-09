@@ -7,3 +7,9 @@
   grid-template-columns: 1fr 10fr;
   width: 1360px;
 }
+
+.content {
+  background-color: whitesmoke;
+  grid-area: c;
+  padding: 8px;
+}

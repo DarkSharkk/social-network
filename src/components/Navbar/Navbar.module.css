@@ -1,4 +1,17 @@
 .nav {
     background-color: beige;
     grid-area: n;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 4px;
+}
+
+.item a {
+    color: rgb(138, 138, 138);
+    text-decoration: none;
+}
+
+.item a.active {
+    color: rgb(125, 19, 225);
 }
