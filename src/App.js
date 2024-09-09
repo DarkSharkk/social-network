@@ -5,15 +5,15 @@ import { Navbar } from "./components/Navbar/Navbar";
 import { Dialogs } from "./components/Dialogs/Dialogs";
 import { BrowserRouter, Route } from "react-router-dom";
 
-const App = () => {
+const App = ({ data }) => {
   return (
     <BrowserRouter>
       <div className="app-container">
         <Header />
         <Navbar />
         <div className="content">
-          <Route component={Profile} path="/profile" />
-          <Route component={Dialogs} path="/messages" />
+          <Route render={() => <Profile posts={data.posts} />} path="/profile" />
+          <Route render={() => <Dialogs users={data.users} messages={data.messages} />} path="/messages" />
         </div>
       </div>
     </BrowserRouter>
