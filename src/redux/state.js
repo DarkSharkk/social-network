@@ -15,9 +15,15 @@ const state = {
         {userName: "Jack Harlow", location: "London"},
         {userName: "Bob Brown", location: "Manchester"}
     ],
-    addPost: (postText) => {
-        state.posts.push({userName: postText, location: "Liverpool" });
-        console.log(state);
+    postText: "",
+    updatePostText: (newPostText) => {
+        state.postText = newPostText;
+
+        renderEntireTree(state);
+    },
+    addPost: () => {
+        state.posts.push({userName: state.postText, location: "Liverpool" });
+        state.postText = "";
 
         renderEntireTree(state);
     }

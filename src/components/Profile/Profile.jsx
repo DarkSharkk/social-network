@@ -3,14 +3,19 @@ import { ProfileInfo } from "./ProfileInfo/ProfileInfo";
 
 import styles from "./Profile.module.css"
 
-export const Profile = ({ posts, addPost }) => {
+export const Profile = ({ posts, addPost, postText, updatePostText }) => {
   return (
     <div className={styles.content}>
       <ProfileInfo 
         src="https://img.pac.ru/resorts/213095/349080/big/4E620F467F00010125C2CB432CC83B57.jpg"
         text="Content" 
       />
-      <MyPosts posts={posts} addPost={addPost} />
+      <MyPosts 
+        posts={posts} 
+        addPost={addPost} 
+        postText={postText} 
+        updatePostText={updatePostText} 
+      />
     </div>
   );
 };

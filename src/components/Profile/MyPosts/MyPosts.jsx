@@ -2,16 +2,22 @@ import { Post } from "./Post/Post";
 import styles from "./MyPosts.module.css";
 import React from "react";
 
-export const MyPosts = ({ posts, addPost }) => {
+export const MyPosts = ({ posts, addPost, postText, updatePostText }) => {
     const textRef = React.createRef();
+
+    const onPostTextChange = () => {
+        updatePostText(textRef.current.value);
+    }
+
+    const onAddPost = () => addPost();
 
     return (
         <div className={styles.container}>
             <h2>My Posts</h2>
 
             <div className={styles.textForm}>
-                <textarea name="post" id="post" ref={textRef}></textarea>
-                <button onClick={() => {console.log(textRef.current.value); return addPost(textRef.current.value)}}>send</button>
+                <textarea name="post" id="post" ref={textRef} value={postText} onChange={onPostTextChange} />
+                <button onClick={onAddPost}>send</button>
             </div>
 
             {posts.map((post) => (
