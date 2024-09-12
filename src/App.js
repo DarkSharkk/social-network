@@ -12,7 +12,7 @@ const App = ({ data }) => {
         <Header />
         <Navbar />
         <div className="content">
-          <Route render={() => <Profile posts={data.posts} />} path="/profile" />
+          <Route render={() => <Profile posts={data.posts} addPost={data.addPost} />} path="/profile" />
           <Route render={() => <Dialogs users={data.users} messages={data.messages} />} path="/messages" />
         </div>
       </div>

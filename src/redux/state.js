@@ -1,3 +1,5 @@
+import { renderEntireTree } from "../render";
+
 const state = {
     messages: [
         {id: 1, text: "Message 1"},
@@ -12,7 +14,13 @@ const state = {
     posts: [
         {userName: "Jack Harlow", location: "London"},
         {userName: "Bob Brown", location: "Manchester"}
-    ]
+    ],
+    addPost: (postText) => {
+        state.posts.push({userName: postText, location: "Liverpool" });
+        console.log(state);
+
+        renderEntireTree(state);
+    }
 }
 
 export default state;
