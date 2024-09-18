@@ -5,7 +5,7 @@ import { Navbar } from "./components/Navbar/Navbar";
 import { Dialogs } from "./components/Dialogs/Dialogs";
 import { BrowserRouter, Route } from "react-router-dom";
 
-const App = ({ data }) => {
+const App = ({ state, addPost, updatePostText }) => {
   return (
     <BrowserRouter>
       <div className="app-container">
@@ -15,15 +15,18 @@ const App = ({ data }) => {
           <Route 
             render={() => (
               <Profile 
-                posts={data.posts} 
-                addPost={data.addPost}
-                postText={data.postText} 
-                updatePostText={data.updatePostText} 
+                posts={state.posts} 
+                addPost={addPost}
+                postText={state.postText} 
+                updatePostText={updatePostText} 
               />
             )} 
             path="/profile" 
           />
-          <Route render={() => <Dialogs users={data.users} messages={data.messages} />} path="/messages" />
+          <Route 
+            render={() => <Dialogs users={state.users} messages={state.messages} />} 
+            path="/messages" 
+          />
         </div>
       </div>
     </BrowserRouter>
