@@ -2,14 +2,14 @@ import { Post } from "./Post/Post";
 import styles from "./MyPosts.module.css";
 import React from "react";
 
-export const MyPosts = ({ posts, addPost, postText, updatePostText }) => {
+export const MyPosts = ({ posts, postText, dispatch }) => {
     const textRef = React.createRef();
 
     const onPostTextChange = () => {
-        updatePostText(textRef.current.value);
+        dispatch({ type: 'UPDATE-POST-TEXT', newPostText: textRef.current.value });
     }
 
-    const onAddPost = () => addPost();
+    const onAddPost = () => dispatch({ type: 'ADD-POST' });
 
     return (
         <div className={styles.container}>

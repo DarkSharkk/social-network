@@ -3,7 +3,7 @@ import { ProfileInfo } from "./ProfileInfo/ProfileInfo";
 
 import styles from "./Profile.module.css"
 
-export const Profile = ({ posts, addPost, postText, updatePostText }) => {
+export const Profile = ({ posts, postText, dispatch }) => {
   return (
     <div className={styles.content}>
       <ProfileInfo 
@@ -12,9 +12,8 @@ export const Profile = ({ posts, addPost, postText, updatePostText }) => {
       />
       <MyPosts 
         posts={posts} 
-        addPost={addPost} 
         postText={postText} 
-        updatePostText={updatePostText} 
+        dispatch={dispatch}
       />
     </div>
   );

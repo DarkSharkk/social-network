@@ -22,24 +22,31 @@ let store = {
     getState() {
         return this._state;
     },
-    updatePostText(newPostText) {
-        console.log(`-`, newPostText);
-        this._state.postText = newPostText;
-
-        this._callSubscriber(this._state);
-    },
-    addPost() {
-        this._state.posts.push({ 
-            userName: this._state.postText, 
-            location: "Liverpool" 
-        });
-        this._state.postText = "";
-
-        this._callSubscriber(this._state);
-    },
     subscribe(observer) {
-        debugger;
         this._callSubscriber = observer;
+    },
+
+    dispatch(action) {
+        switch(action.type) {
+            case 'UPDATE-POST-TEXT':
+                this._state.postText = action.newPostText;
+
+                this._callSubscriber(this._state);
+
+                break;
+            case 'ADD-POST':
+                this._state.posts.push({ 
+                    userName: this._state.postText, 
+                    location: "Liverpool" 
+                });
+                this._state.postText = "";
+        
+                this._callSubscriber(this._state);
+
+                break;
+            default:
+                return;
+        }
     }
 };
 

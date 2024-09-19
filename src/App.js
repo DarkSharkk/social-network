@@ -5,7 +5,7 @@ import { Navbar } from "./components/Navbar/Navbar";
 import { Dialogs } from "./components/Dialogs/Dialogs";
 import { BrowserRouter, Route } from "react-router-dom";
 
-const App = ({ state, addPost, updatePostText }) => {
+const App = ({ state, dispatch }) => {
   return (
     <BrowserRouter>
       <div className="app-container">
@@ -16,9 +16,8 @@ const App = ({ state, addPost, updatePostText }) => {
             render={() => (
               <Profile 
                 posts={state.posts} 
-                addPost={addPost}
                 postText={state.postText} 
-                updatePostText={updatePostText} 
+                dispatch={dispatch}
               />
             )} 
             path="/profile" 
