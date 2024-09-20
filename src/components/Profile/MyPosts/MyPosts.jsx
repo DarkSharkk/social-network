@@ -1,15 +1,14 @@
 import { Post } from "./Post/Post";
 import styles from "./MyPosts.module.css";
 import React from "react";
+import { addPostAC, postTextChangeAC } from "../../../redux/state";
 
 export const MyPosts = ({ posts, postText, dispatch }) => {
     const textRef = React.createRef();
 
-    const onPostTextChange = () => {
-        dispatch({ type: 'UPDATE-POST-TEXT', newPostText: textRef.current.value });
-    }
+    const onPostTextChange = () => dispatch(postTextChangeAC(textRef.current.value));
 
-    const onAddPost = () => dispatch({ type: 'ADD-POST' });
+    const onAddPost = () => dispatch(addPostAC());
 
     return (
         <div className={styles.container}>

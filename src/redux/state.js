@@ -1,3 +1,6 @@
+const ADD_POST = 'ADD-POST';
+const UPDATE_POST_TEXT = 'UPDATE-POST-TEXT';
+
 let store = {
     _state: {
         messages: [
@@ -49,5 +52,11 @@ let store = {
         }
     }
 };
+
+export const postTextChangeAC = (newPostText) => ({
+    type: UPDATE_POST_TEXT, newPostText 
+});
+
+export const addPostAC = () => ({ type: ADD_POST });
 
 export default store;
