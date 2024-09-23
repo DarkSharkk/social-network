@@ -29,6 +29,7 @@ const App = ({ state, dispatch }) => {
                 users={state.users} 
                 messages={state.messages}
                 drafts={state.drafts}
+                draftText={state.draftText}
                 dispatch={dispatch} 
               />
             )}

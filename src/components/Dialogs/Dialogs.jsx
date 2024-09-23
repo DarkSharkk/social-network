@@ -11,7 +11,7 @@ const DialogItem = ({ id, name }) => {
   );
 };
 
-export const Dialogs = ({ users, messages, drafts, dispatch }) => {
+export const Dialogs = ({ users, messages, drafts, draftText, dispatch }) => {
   const textRef = React.createRef();
 
   const onDraftTextChahnge = () => dispatch(draftTextChangeAC(textRef.current.value));
@@ -45,7 +45,7 @@ export const Dialogs = ({ users, messages, drafts, dispatch }) => {
           </div>
 
           <div className={styles.drafts}>
-            <textarea name="draftText" id="draftText" ref={textRef} onChange={onDraftTextChahnge} />
+            <textarea name="draftText" id="draftText" value={draftText} ref={textRef} onChange={onDraftTextChahnge} />
             <button onClick={onAddDraft}>Save</button>
           </div>
         </div>
