@@ -1,4 +1,17 @@
+.container {
+    display: grid;
+    grid-template-columns: 2fr 3fr;
+}
+
 .dialogs {
     display: grid;
     grid-template-columns: 2fr 10fr;
+}
+
+.drafts {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    align-self: flex-start;
+    width: 12rem;
 }

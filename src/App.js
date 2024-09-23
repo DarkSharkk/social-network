@@ -12,7 +12,8 @@ const App = ({ state, dispatch }) => {
         <Header />
         <Navbar />
         <div className="content">
-          <Route 
+          <Route
+            path="/profile" 
             render={() => (
               <Profile 
                 posts={state.posts} 
@@ -20,11 +21,17 @@ const App = ({ state, dispatch }) => {
                 dispatch={dispatch}
               />
             )} 
-            path="/profile" 
           />
-          <Route 
-            render={() => <Dialogs users={state.users} messages={state.messages} />} 
+          <Route
             path="/messages" 
+            render={() => (
+              <Dialogs 
+                users={state.users} 
+                messages={state.messages}
+                drafts={state.drafts}
+                dispatch={dispatch} 
+              />
+            )}
           />
         </div>
       </div>

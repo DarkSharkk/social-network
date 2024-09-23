@@ -1,5 +1,7 @@
 const ADD_POST = 'ADD-POST';
 const UPDATE_POST_TEXT = 'UPDATE-POST-TEXT';
+const ADD_DRAFT = 'ADD-DRAFT';
+const UPDATE_DRAFT_TEXT = 'UPDATE-DRAFT-TEXT';
 
 let store = {
     _state: {
@@ -13,6 +15,8 @@ let store = {
             {id: 2, name: "User 2"},
             {id: 3, name: "User 3"}
         ],
+        drafts: [],
+        draftText: "",
         posts: [
             {userName: "Jack Harlow", location: "London"},
             {userName: "Bob Brown", location: "Manchester"}
@@ -31,19 +35,32 @@ let store = {
 
     dispatch(action) {
         switch(action.type) {
-            case 'UPDATE-POST-TEXT':
+            case UPDATE_POST_TEXT:
                 this._state.postText = action.newPostText;
 
                 this._callSubscriber(this._state);
 
                 break;
-            case 'ADD-POST':
+            case ADD_POST:
                 this._state.posts.push({ 
                     userName: this._state.postText, 
                     location: "Liverpool" 
                 });
                 this._state.postText = "";
         
+                this._callSubscriber(this._state);
+
+                break;
+            case UPDATE_DRAFT_TEXT:
+                this._state.draftText = action.newDraftText;
+
+                this._callSubscriber(this._state);
+            
+                break;
+            case ADD_DRAFT:
+                this._state.drafts.push(this._state.draftText);
+                this._state.draftText = "";
+
                 this._callSubscriber(this._state);
 
                 break;
@@ -58,5 +75,11 @@ export const postTextChangeAC = (newPostText) => ({
 });
 
 export const addPostAC = () => ({ type: ADD_POST });
+
+export const draftTextChangeAC = (newDraftText) => ({
+    type: UPDATE_DRAFT_TEXT, newDraftText
+});
+
+export const addDraftAC = () => ({ type: ADD_DRAFT });
 
 export default store;
