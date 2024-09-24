@@ -1,7 +1,15 @@
 const ADD_POST = 'ADD-POST';
 const UPDATE_POST_TEXT = 'UPDATE-POST-TEXT';
 
-export const profileReducer = (state, action) => {
+const initialState = {
+    posts: [
+        {userName: "Jack Harlow", location: "London"},
+        {userName: "Bob Brown", location: "Manchester"}
+    ],
+    postText: "",
+};
+
+export const profileReducer = (state = initialState, action) => {
     switch(action.type) {
         case UPDATE_POST_TEXT:
             state.postText = action.newPostText;
