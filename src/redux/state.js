@@ -1,27 +1,29 @@
-const ADD_POST = 'ADD-POST';
-const UPDATE_POST_TEXT = 'UPDATE-POST-TEXT';
-const ADD_DRAFT = 'ADD-DRAFT';
-const UPDATE_DRAFT_TEXT = 'UPDATE-DRAFT-TEXT';
+import { dialogsReducer } from "./dialogsReducer";
+import { profileReducer } from "./profileReducer";
 
 let store = {
     _state: {
-        messages: [
-            {id: 1, text: "Message 1"},
-            {id: 2, text: "Message 2"},
-            {id: 3, text: "Message 3"}
-        ],
-        users: [
-            {id: 1, name: "User 1"},
-            {id: 2, name: "User 2"},
-            {id: 3, name: "User 3"}
-        ],
-        drafts: [],
-        draftText: "",
-        posts: [
-            {userName: "Jack Harlow", location: "London"},
-            {userName: "Bob Brown", location: "Manchester"}
-        ],
-        postText: "",
+        profilePage: {
+            posts: [
+                {userName: "Jack Harlow", location: "London"},
+                {userName: "Bob Brown", location: "Manchester"}
+            ],
+            postText: "",
+        },
+        dialogsPage: {
+            messages: [
+                {id: 1, text: "Message 1"},
+                {id: 2, text: "Message 2"},
+                {id: 3, text: "Message 3"}
+            ],
+            users: [
+                {id: 1, name: "User 1"},
+                {id: 2, name: "User 2"},
+                {id: 3, name: "User 3"}
+            ],
+            drafts: [],
+            draftText: "",
+        },
     },
     _callSubscriber() {
         console.log('State changed.');
@@ -34,52 +36,11 @@ let store = {
     },
 
     dispatch(action) {
-        switch(action.type) {
-            case UPDATE_POST_TEXT:
-                this._state.postText = action.newPostText;
+        this._state.profilePage = profileReducer(this._state.profilePage, action);
+        this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action);
 
-                this._callSubscriber(this._state);
-
-                break;
-            case ADD_POST:
-                this._state.posts.push({ 
-                    userName: this._state.postText, 
-                    location: "Liverpool" 
-                });
-                this._state.postText = "";
-        
-                this._callSubscriber(this._state);
-
-                break;
-            case UPDATE_DRAFT_TEXT:
-                this._state.draftText = action.newDraftText;
-
-                this._callSubscriber(this._state);
-            
-                break;
-            case ADD_DRAFT:
-                this._state.drafts.push(this._state.draftText);
-                this._state.draftText = "";
-
-                this._callSubscriber(this._state);
-
-                break;
-            default:
-                return;
-        }
+        this._callSubscriber(this._state);
     }
 };
-
-export const postTextChangeAC = (newPostText) => ({
-    type: UPDATE_POST_TEXT, newPostText 
-});
-
-export const addPostAC = () => ({ type: ADD_POST });
-
-export const draftTextChangeAC = (newDraftText) => ({
-    type: UPDATE_DRAFT_TEXT, newDraftText
-});
-
-export const addDraftAC = () => ({ type: ADD_DRAFT });
 
 export default store;

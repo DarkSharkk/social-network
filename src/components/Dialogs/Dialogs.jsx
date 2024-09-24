@@ -1,6 +1,6 @@
 import { NavLink } from "react-router-dom";
 import styles from "./Dialogs.module.css";
-import { addDraftAC, draftTextChangeAC } from "../../redux/state";
+import { addDraftAC, draftTextChangeAC } from "../../redux/dialogsReducer";
 import React from "react";
 
 const DialogItem = ({ id, name }) => {

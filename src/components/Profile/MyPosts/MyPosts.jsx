@@ -1,7 +1,7 @@
 import { Post } from "./Post/Post";
 import styles from "./MyPosts.module.css";
 import React from "react";
-import { addPostAC, postTextChangeAC } from "../../../redux/state";
+import { addPostAC, postTextChangeAC } from "../../../redux/profileReducer";
 
 export const MyPosts = ({ posts, postText, dispatch }) => {
     const textRef = React.createRef();

@@ -16,8 +16,8 @@ const App = ({ state, dispatch }) => {
             path="/profile" 
             render={() => (
               <Profile 
-                posts={state.posts} 
-                postText={state.postText} 
+                posts={state.profilePage.posts} 
+                postText={state.profilePage.postText} 
                 dispatch={dispatch}
               />
             )} 
@@ -26,10 +26,10 @@ const App = ({ state, dispatch }) => {
             path="/messages" 
             render={() => (
               <Dialogs 
-                users={state.users} 
-                messages={state.messages}
-                drafts={state.drafts}
-                draftText={state.draftText}
+                users={state.dialogsPage.users} 
+                messages={state.dialogsPage.messages}
+                drafts={state.dialogsPage.drafts}
+                draftText={state.dialogsPage.draftText}
                 dispatch={dispatch} 
               />
             )}
