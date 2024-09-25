@@ -5,12 +5,12 @@ import reportWebVitals from './reportWebVitals';
 import store from "./redux/store";
 import App from './App';
 
-const renderEntireTree = (state) => {
-    ReactDOM.render(<App state={state} dispatch={store.dispatch.bind(store)} />, document.getElementById('root'))
+const renderEntireTree = (store) => {
+    ReactDOM.render(<App store={store} />, document.getElementById('root'))
 };
 
-renderEntireTree(store.getState());
-store.subscribe(() => renderEntireTree(store.getState()));
+renderEntireTree(store);
+store.subscribe(() => renderEntireTree(store));
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

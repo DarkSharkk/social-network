@@ -2,10 +2,10 @@ import "./App.css";
 import { Profile } from "./components/Profile/Profile";
 import { Header } from "./components/Header/Header";
 import { Navbar } from "./components/Navbar/Navbar";
-import { Dialogs } from "./components/Dialogs/Dialogs";
+import { DialogsContainer } from "./components/Dialogs/DialogsContainer";
 import { BrowserRouter, Route } from "react-router-dom";
 
-const App = ({ state, dispatch }) => {
+const App = (props) => {
   return (
     <BrowserRouter>
       <div className="app-container">
@@ -14,25 +14,11 @@ const App = ({ state, dispatch }) => {
         <div className="content">
           <Route
             path="/profile" 
-            render={() => (
-              <Profile 
-                posts={state.profilePage.posts} 
-                postText={state.profilePage.postText} 
-                dispatch={dispatch}
-              />
-            )} 
+            render={() => <Profile store={props.store} />} 
           />
           <Route
             path="/messages" 
-            render={() => (
-              <Dialogs 
-                users={state.dialogsPage.users} 
-                messages={state.dialogsPage.messages}
-                drafts={state.dialogsPage.drafts}
-                draftText={state.dialogsPage.draftText}
-                dispatch={dispatch} 
-              />
-            )}
+            render={() => <DialogsContainer store={props.store} />}
           />
         </div>
       </div>

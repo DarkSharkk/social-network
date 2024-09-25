@@ -1,6 +1,5 @@
 import { NavLink } from "react-router-dom";
 import styles from "./Dialogs.module.css";
-import { addDraftAC, draftTextChangeAC } from "../../redux/dialogsReducer";
 import React from "react";
 
 const DialogItem = ({ id, name }) => {
@@ -11,12 +10,12 @@ const DialogItem = ({ id, name }) => {
   );
 };
 
-export const Dialogs = ({ users, messages, drafts, draftText, dispatch }) => {
+export const Dialogs = ({ users, messages, drafts, draftText, draftTextChangeHandler, addDraftHandler }) => {
   const textRef = React.createRef();
 
-  const onDraftTextChahnge = () => dispatch(draftTextChangeAC(textRef.current.value));
+  const onDraftTextChahnge = () => draftTextChangeHandler(textRef.current.value);
 
-  const onAddDraft = () => dispatch(addDraftAC());
+  const onAddDraft = () => addDraftHandler();
 
   return (
     <div className={styles.container}>

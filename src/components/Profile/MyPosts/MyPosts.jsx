@@ -1,14 +1,13 @@
+import React from "react";
 import { Post } from "./Post/Post";
 import styles from "./MyPosts.module.css";
-import React from "react";
-import { addPostAC, postTextChangeAC } from "../../../redux/profileReducer";
 
-export const MyPosts = ({ posts, postText, dispatch }) => {
+export const MyPosts = ({ posts, postText, postTextChangeHandler, addPostHandler }) => {
     const textRef = React.createRef();
 
-    const onPostTextChange = () => dispatch(postTextChangeAC(textRef.current.value));
+    const onPostTextChange = () => postTextChangeHandler(textRef.current.value);
 
-    const onAddPost = () => dispatch(addPostAC());
+    const onAddPost = () => addPostHandler();
 
     return (
         <div className={styles.container}>
