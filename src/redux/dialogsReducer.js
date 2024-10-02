@@ -18,15 +18,17 @@ const initialState = {
 
 export const dialogsReducer = (state = initialState, action) => {
     switch(action.type) {
-        case UPDATE_DRAFT_TEXT:
-            state.draftText = action.newDraftText;
-        
-            return state;
+        case UPDATE_DRAFT_TEXT:      
+            return {
+                ...state,
+                draftText: action.newDraftText,
+            };
         case ADD_DRAFT:
-            state.drafts.push(state.draftText);
-            state.draftText = "";
-
-            return state;
+            return {
+                ...state,
+                drafts: [...state.drafts, state.draftText],
+                draftText: "",
+            };
         default:
             return state;
     }
