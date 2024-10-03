@@ -1,0 +1,20 @@
+.users {
+    padding: 24px;
+}
+
+.userItem {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 24px;
+
+    img {
+        width: 96px;
+        height: 96px;
+    }
+}
+
+.info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}

@@ -4,6 +4,7 @@ import { Profile } from "./components/Profile/Profile";
 import { Header } from "./components/Header/Header";
 import { Navbar } from "./components/Navbar/Navbar";
 import { DialogsContainer } from "./components/Dialogs/DialogsContainer";
+import { UsersContainer } from "./components/Users/UsersContainer";
 import "./App.css";
 
 const App = (props) => {
@@ -16,6 +17,7 @@ const App = (props) => {
           <div className="content">
             <Route path="/profile" render={() => <Profile />} />
             <Route path="/messages" render={() => <DialogsContainer />} />
+            <Route path="/users" render={() => <UsersContainer />} />
           </div>
         </div>
       </Provider>

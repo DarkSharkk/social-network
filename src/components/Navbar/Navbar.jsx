@@ -15,6 +15,11 @@ export const Navbar = () => {
                 </NavLink>
             </div>
             <div className={styles.item}>
+                <NavLink to="/users" activeClassName={styles.active}>
+                    Users
+                </NavLink>
+            </div>
+            <div className={styles.item}>
                 <NavLink to="/settings" activeClassName={styles.active}>
                     Settings
                 </NavLink>
