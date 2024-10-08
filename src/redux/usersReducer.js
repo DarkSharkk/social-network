@@ -1,8 +1,13 @@
 const TOGGLE_SUBSCRIBE = 'TOGGLE_SUBSCRIBE';
 const SET_USERS = 'SET_USERS';
+const SET_TOTAL_COUNT = 'SET_TOTAL_COUNT';
+const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE';
 
 const initialState = {
-    users: []
+    users: [],
+    totalCount: 0,
+    pageSize: 10,
+    currentPage: 1,
 };
 
 export const usersReducer = (state = initialState, action) => {
@@ -24,8 +29,18 @@ export const usersReducer = (state = initialState, action) => {
         case SET_USERS: 
             return {
                 ...state,
-                users: [...state.users, ...action.users]
+                users: action.users
             };
+        case SET_TOTAL_COUNT:
+            return {
+                ...state,
+                totalCount: action.totalCount
+            }
+        case SET_CURRENT_PAGE:
+            return {
+                ...state,
+                currentPage: action.currentPage
+            }
         default: 
             return state;
     }
@@ -36,5 +51,13 @@ export const toggleSubscribeAC = (id) => ({
 });
 
 export const setUsersAC = (users) => ({
-    type: SET_USERS, users: users
+    type: SET_USERS, users
+});
+
+export const setTotalCountAC = (totalCount) => ({
+    type: SET_TOTAL_COUNT, totalCount
+});
+
+export const setCurrentPageAC = (currentPage) => ({
+    type: SET_CURRENT_PAGE, currentPage
 });

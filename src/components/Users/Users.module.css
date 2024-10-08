@@ -1,5 +1,21 @@
-.users {
+.usersPage {
     padding: 24px;
+}
+
+.pagination {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 16px;
+
+    span:hover {
+        cursor: pointer;
+        color: blueviolet;
+    }
+}
+
+.activePage {
+    font-weight: 600;
+    color: blueviolet;
 }
 
 .userItem {
