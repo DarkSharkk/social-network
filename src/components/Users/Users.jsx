@@ -4,12 +4,10 @@ import avatar from "./../../avatar.png";
 import styles from "./Users.module.css";
 
 export class Users extends React.Component {
-    constructor(props) {
-        super(props);
-
+    componentDidMount() {
         axios
             .get('https://social-network.samuraijs.com/api/1.0/users')
-            .then(({ data }) => this.props.setUsers(data.items))
+            .then(({ data }) => this.props.setUsers(data.items));
     }
 
     render() {
