@@ -1,47 +1,59 @@
 import * as axios from "axios";
 import React from "react";
 import { connect } from "react-redux";
-import { setUsersAC, toggleSubscribeAC, setCurrentPageAC, setTotalCountAC } from "../../redux/usersReducer";
+import { setUsersAC, toggleSubscribeAC, setCurrentPageAC, setTotalCountAC, toggleIsFetching } from "../../redux/usersReducer";
 import { Users } from "./Users";
+import loader from "./../../bouncing-circles.svg";
 
 class UsersSubContainer extends React.Component {
     componentDidMount() {
+        this.props.toggleIsFetching(true);
+
         axios
             .get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
             .then(({ data }) => {
                 this.props.setUsers(data.items);
                 this.props.setTotalCount(data.totalCount);
+
+                this.props.toggleIsFetching(false);
             });
     }
 
     onPageClick = (page) => {
         this.props.setCurrentPage(page);
+        this.props.toggleIsFetching(true);
 
         axios
             .get(`https://social-network.samuraijs.com/api/1.0/users?page=${page}&count=${this.props.pageSize}`)
             .then(({ data }) => {
                 this.props.setUsers(data.items);
+
+                this.props.toggleIsFetching(false);
             });
     };
 
     render() {
         return (
-            <Users
-                users={this.props.users}
-                totalCount={this.props.totalCount}
-                pageSize={this.props.pageSize}
-                currentPage={this.props.currentPage}
-                toggleFollow={this.props.toggleFollow}
-                onPageClick={this.onPageClick}
-            />
+            this.props.isFetching 
+                ? <img src={loader} alt="" /> 
+                : (
+                    <Users
+                        users={this.props.users}
+                        totalCount={this.props.totalCount}
+                        pageSize={this.props.pageSize}
+                        currentPage={this.props.currentPage}
+                        toggleFollow={this.props.toggleFollow}
+                        onPageClick={this.onPageClick}
+                    />
+                )
         );
     }
 }
 
 const mapStateToProps = (state) => {
-    const { users, totalCount, pageSize, currentPage } = state.usersPage;
+    const { users, totalCount, pageSize, currentPage, isFetching } = state.usersPage;
 
-    return { users, totalCount, pageSize, currentPage };
+    return { users, totalCount, pageSize, currentPage, isFetching };
 };
 
 const mapDispatchToProps = (dispatch) => ({
@@ -49,6 +61,7 @@ const mapDispatchToProps = (dispatch) => ({
     setUsers: (newUsers) => dispatch(setUsersAC(newUsers)),
     setTotalCount: (totalCount) => dispatch(setTotalCountAC(totalCount)),
     setCurrentPage: (currentPage) => dispatch(setCurrentPageAC(currentPage)),
+    toggleIsFetching: (isFetching) => dispatch(toggleIsFetching(isFetching)),
 });
 
 export const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(UsersSubContainer);
