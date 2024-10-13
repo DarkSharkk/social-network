@@ -52,19 +52,19 @@ export const usersReducer = (state = initialState, action) => {
     }
 };
 
-export const toggleSubscribeAC = (id) => ({
+export const toggleFollow = (id) => ({
     type: TOGGLE_SUBSCRIBE, userId: id
 });
 
-export const setUsersAC = (users) => ({
+export const setUsers = (users) => ({
     type: SET_USERS, users
 });
 
-export const setTotalCountAC = (totalCount) => ({
+export const setTotalCount = (totalCount) => ({
     type: SET_TOTAL_COUNT, totalCount
 });
 
-export const setCurrentPageAC = (currentPage) => ({
+export const setCurrentPage = (currentPage) => ({
     type: SET_CURRENT_PAGE, currentPage
 });
 

@@ -1,7 +1,7 @@
 import * as axios from "axios";
 import React from "react";
 import { connect } from "react-redux";
-import { setUsersAC, toggleSubscribeAC, setCurrentPageAC, setTotalCountAC, toggleIsFetching } from "../../redux/usersReducer";
+import { setUsers, toggleFollow, setCurrentPage, setTotalCount, toggleIsFetching } from "../../redux/usersReducer";
 import { Users } from "./Users";
 import loader from "./../../bouncing-circles.svg";
 
@@ -56,12 +56,10 @@ const mapStateToProps = (state) => {
     return { users, totalCount, pageSize, currentPage, isFetching };
 };
 
-const mapDispatchToProps = (dispatch) => ({
-    toggleFollow: (userId) => dispatch(toggleSubscribeAC(userId)),
-    setUsers: (newUsers) => dispatch(setUsersAC(newUsers)),
-    setTotalCount: (totalCount) => dispatch(setTotalCountAC(totalCount)),
-    setCurrentPage: (currentPage) => dispatch(setCurrentPageAC(currentPage)),
-    toggleIsFetching: (isFetching) => dispatch(toggleIsFetching(isFetching)),
-});
-
-export const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(UsersSubContainer);
+export const UsersContainer = connect(mapStateToProps, {
+    toggleFollow,
+    setUsers,
+    setTotalCount,
+    setCurrentPage,
+    toggleIsFetching,
+})(UsersSubContainer);
