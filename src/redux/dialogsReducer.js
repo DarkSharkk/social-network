@@ -34,8 +34,8 @@ export const dialogsReducer = (state = initialState, action) => {
     }
 };
 
-export const draftTextChangeAC = (newDraftText) => ({
+export const draftTextChange = (newDraftText) => ({
     type: UPDATE_DRAFT_TEXT, newDraftText
 });
 
-export const addDraftAC = () => ({ type: ADD_DRAFT });
+export const addDraft = () => ({ type: ADD_DRAFT });

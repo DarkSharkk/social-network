@@ -10,12 +10,12 @@ const DialogItem = ({ id, name }) => {
   );
 };
 
-export const Dialogs = ({ users, messages, drafts, draftText, draftTextChangeHandler, addDraftHandler }) => {
+export const Dialogs = ({ users, messages, drafts, draftText, draftTextChange, addDraft }) => {
   const textRef = React.createRef();
 
-  const onDraftTextChahnge = () => draftTextChangeHandler(textRef.current.value);
+  const onDraftTextChahnge = () => draftTextChange(textRef.current.value);
 
-  const onAddDraft = () => addDraftHandler();
+  const onAddDraft = () => addDraft();
 
   return (
     <div className={styles.container}>

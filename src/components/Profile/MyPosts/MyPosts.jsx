@@ -2,12 +2,12 @@ import React from "react";
 import { Post } from "./Post/Post";
 import styles from "./MyPosts.module.css";
 
-export const MyPosts = ({ posts, postText, postTextChangeHandler, addPostHandler }) => {
+export const MyPosts = ({ posts, postText, postTextChange, addPost }) => {
     const textRef = React.createRef();
 
-    const onPostTextChange = () => postTextChangeHandler(textRef.current.value);
+    const onPostTextChange = () => postTextChange(textRef.current.value);
 
-    const onAddPost = () => addPostHandler();
+    const onAddPost = () => addPost();
 
     return (
         <div className={styles.container}>

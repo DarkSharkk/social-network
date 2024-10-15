@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import { addDraftAC, draftTextChangeAC } from "../../redux/dialogsReducer";
+import { addDraft, draftTextChange } from "../../redux/dialogsReducer";
 import { Dialogs } from "./Dialogs";
 
 const mapStateToProps = (state) => {
@@ -8,9 +8,4 @@ const mapStateToProps = (state) => {
     return { users, messages, drafts, draftText }; 
 };
 
-const mapDispatchToProps = (dispatch) => ({
-    draftTextChangeHandler: (text) => dispatch(draftTextChangeAC(text)),
-    addDraftHandler: () => dispatch(addDraftAC()),
-});
-
-export const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(Dialogs);
+export const DialogsContainer = connect(mapStateToProps, { addDraft, draftTextChange })(Dialogs);
