@@ -1,3 +1,18 @@
 img {
-    width: 344px;
+    width: 264px;
+}
+
+.profileInfo {
+    display: flex;
+    gap: 12px;
+}
+
+.info {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    span {
+        font-weight: 600;
+    }
 }

@@ -1,10 +1,14 @@
 import styles from './ProfileInfo.module.css';
 
-export const ProfileInfo = ({ src, text }) => {
+export const ProfileInfo = ({ profile }) => {
     return (
-      <>
-        <img src={src} />
-        <p>{ text }</p>
-      </>
+        <div className={styles.profileInfo}>
+            <img src={profile.photos.large} alt="" />
+            <div className={styles.info}>
+                <span>{profile.fullName}</span>
+                <span>github: {profile.contacts.github}</span>
+                <span>{profile.lookingForAJob ? 'Ищет работу' : 'Не ищет работу'}</span>
+            </div>
+        </div>
     );
 }

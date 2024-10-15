@@ -1,15 +1,12 @@
 import { MyPostsContainer } from "./MyPosts/MyPostsContainer";
-import { ProfileInfo } from "./ProfileInfo/ProfileInfo";
+import { ProfileInfoContainer } from "./ProfileInfo/ProfileInfoContainer";
 
 import styles from "./Profile.module.css"
 
 export const Profile = ({ store }) => {
 	return (
     	<div className={styles.content}>
-			<ProfileInfo 
-				src="https://img.pac.ru/resorts/213095/349080/big/4E620F467F00010125C2CB432CC83B57.jpg"
-				text="Content" 
-			/>
+			<ProfileInfoContainer />
 			<MyPostsContainer store={store} />
 		</div>
 	);
