@@ -28,7 +28,7 @@ export const Users = (props) => {
             <div>
                 {props.users.map((user) => (
                     <div className={styles.userItem} key={user.id}>
-                        <NavLink to="/profile/2">
+                        <NavLink to={`/profile/${user.id}`}>
                             <img src={user.photos.small ?? avatar} alt="" />
                         </NavLink>
                         
