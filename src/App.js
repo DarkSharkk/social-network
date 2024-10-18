@@ -1,7 +1,7 @@
 import { BrowserRouter, Route } from "react-router-dom";
 import { Provider } from "react-redux";
 import { Profile } from "./components/Profile/Profile";
-import { Header } from "./components/Header/Header";
+import { HeaderContainer } from "./components/Header/HeaderContainer";
 import { Navbar } from "./components/Navbar/Navbar";
 import { DialogsContainer } from "./components/Dialogs/DialogsContainer";
 import { UsersContainer } from "./components/Users/UsersContainer";
@@ -12,7 +12,7 @@ const App = (props) => {
     <BrowserRouter>
       <Provider store={props.store}>
         <div className="app-container">
-          <Header />
+          <HeaderContainer />
           <Navbar />
           <div className="content">
             <Route path="/profile/:userId?" render={() => <Profile />} />

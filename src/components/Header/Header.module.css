@@ -1,8 +1,21 @@
 .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 12px;
     background-color: antiquewhite;
     grid-area: h;
   
-    > img {
-      width: 24px;
+    img {
+        width: 24px;
     }
+}
+
+.link {
+    text-decoration: none;
+}
+
+.text {
+    font-weight: 600;
+    color: blueviolet;
 }
