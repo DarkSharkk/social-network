@@ -19,6 +19,7 @@ export const Users = (props) => {
                     <span 
                         className={props.currentPage === page ? styles.activePage : ''} 
                         onClick={() => props.onPageClick(page)}
+                        key={`page-${page}`}
                     >
                         {page}
                     </span>
