@@ -1,3 +1,4 @@
+import * as axios from "axios";
 import React from "react";
 import { NavLink } from "react-router-dom";
 import avatar from "./../../avatar.png";
@@ -11,6 +12,24 @@ export const Users = (props) => {
     for (let i = 1; i <= pagesCount; i++) {
         pages.push(i);
     }
+
+    const onToggleFollow = (id, followed) => {
+        followed 
+            ? axios
+                .delete(`https://social-network.samuraijs.com/api/1.0/follow/${id}`, { withCredentials: true, headers: {'API-KEY': '4621d2ee-32ba-46a2-a70d-6f671980f21a'} })
+                .then(({ data }) => {
+                    if (!data.resultCode) {
+                        props.toggleFollow(id);
+                    }
+                })
+            : axios
+                .post(`https://social-network.samuraijs.com/api/1.0/follow/${id}`, {}, { withCredentials: true, headers: {'API-KEY': '4621d2ee-32ba-46a2-a70d-6f671980f21a'} })
+                .then(({ data }) => {
+                    if (!data.resultCode) {
+                        props.toggleFollow(id);
+                    }
+                })
+    };
 
     return (
         <div className={styles.usersPage}>
@@ -37,7 +56,7 @@ export const Users = (props) => {
                             <span>{user.name}</span>
                             <span>{'user.location'}</span>
 
-                            <button onClick={() => props.toggleFollow(user.id)}>
+                            <button onClick={() => onToggleFollow(user.id, user.followed)}>
                                 {user.followed ? "Unfollow" : "Follow"}
                             </button>
                         </div>
