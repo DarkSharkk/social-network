@@ -1,17 +1,17 @@
-import * as axios from "axios";
 import React from "react";
 import { connect } from "react-redux";
 import { setUsers, toggleFollow, setCurrentPage, setTotalCount, toggleIsFetching } from "../../redux/usersReducer";
 import { Users } from "./Users";
 import loader from "./../../bouncing-circles.svg";
+import { API } from "../../api";
 
 class UsersSubContainer extends React.Component {
     componentDidMount() {
         this.props.toggleIsFetching(true);
 
-        axios
-            .get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`, { withCredentials: true })
-            .then(({ data }) => {
+        API
+            .getUsers(this.props.currentPage, this.props.pageSize)
+            .then((data) => {
                 this.props.setUsers(data.items);
                 this.props.setTotalCount(data.totalCount);
 
@@ -23,9 +23,9 @@ class UsersSubContainer extends React.Component {
         this.props.setCurrentPage(page);
         this.props.toggleIsFetching(true);
 
-        axios
-            .get(`https://social-network.samuraijs.com/api/1.0/users?page=${page}&count=${this.props.pageSize}`, { withCredentials: true })
-            .then(({ data }) => {
+        API
+            .getUsers(page, this.props.pageSize)
+            .then((data) => {
                 this.props.setUsers(data.items);
 
                 this.props.toggleIsFetching(false);

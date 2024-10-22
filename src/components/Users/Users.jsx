@@ -1,9 +1,9 @@
-import * as axios from "axios";
 import React from "react";
 import { NavLink } from "react-router-dom";
 import avatar from "./../../avatar.png";
 
 import styles from "./Users.module.css";
+import { API } from "../../api";
 
 export const Users = (props) => {
     const pagesCount = Math.ceil(props.totalCount / props.pageSize);
@@ -15,15 +15,15 @@ export const Users = (props) => {
 
     const onToggleFollow = (id, followed) => {
         followed 
-            ? axios
-                .delete(`https://social-network.samuraijs.com/api/1.0/follow/${id}`, { withCredentials: true, headers: {'API-KEY': '4621d2ee-32ba-46a2-a70d-6f671980f21a'} })
+            ? API
+                .unfollowUser(id)
                 .then(({ data }) => {
                     if (!data.resultCode) {
                         props.toggleFollow(id);
                     }
                 })
-            : axios
-                .post(`https://social-network.samuraijs.com/api/1.0/follow/${id}`, {}, { withCredentials: true, headers: {'API-KEY': '4621d2ee-32ba-46a2-a70d-6f671980f21a'} })
+            : API
+                .followUser(id)
                 .then(({ data }) => {
                     if (!data.resultCode) {
                         props.toggleFollow(id);
