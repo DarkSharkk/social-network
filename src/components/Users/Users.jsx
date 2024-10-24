@@ -14,6 +14,8 @@ export const Users = (props) => {
     }
 
     const onToggleFollow = (id, followed) => {
+        props.toggleFollowInProgress({isInProgress: true, userId: id});
+
         followed 
             ? API
                 .unfollowUser(id)
@@ -21,6 +23,7 @@ export const Users = (props) => {
                     if (!data.resultCode) {
                         props.toggleFollow(id);
                     }
+                    props.toggleFollowInProgress({isInProgress: false, userId: id});
                 })
             : API
                 .followUser(id)
@@ -28,6 +31,7 @@ export const Users = (props) => {
                     if (!data.resultCode) {
                         props.toggleFollow(id);
                     }
+                    props.toggleFollowInProgress({isInProgress: false, userId: id});
                 })
     };
 
@@ -56,7 +60,10 @@ export const Users = (props) => {
                             <span>{user.name}</span>
                             <span>{'user.location'}</span>
 
-                            <button onClick={() => onToggleFollow(user.id, user.followed)}>
+                            <button 
+                                onClick={() => onToggleFollow(user.id, user.followed)} 
+                                disabled={props.followingProcess.isInProgress && props.followingProcess.userId === user.id}
+                            >
                                 {user.followed ? "Unfollow" : "Follow"}
                             </button>
                         </div>

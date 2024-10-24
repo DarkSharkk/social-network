@@ -19,4 +19,4 @@ const mapStateToProps = (state) => ({
     isAuth: state.auth.isAuth,
 });
 
-export const HeaderContainer = connect(mapStateToProps, { setUserData })(HeaderSubContainer)
+export const HeaderContainer = connect(mapStateToProps, { setUserData })(HeaderSubContainer);

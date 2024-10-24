@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { setUsers, toggleFollow, setCurrentPage, setTotalCount, toggleIsFetching } from "../../redux/usersReducer";
+import { setUsers, toggleFollow, setCurrentPage, setTotalCount, toggleIsFetching, toggleFollowInProgress } from "../../redux/usersReducer";
 import { Users } from "./Users";
 import loader from "./../../bouncing-circles.svg";
 import { API } from "../../api";
@@ -43,6 +43,8 @@ class UsersSubContainer extends React.Component {
                         pageSize={this.props.pageSize}
                         currentPage={this.props.currentPage}
                         toggleFollow={this.props.toggleFollow}
+                        followingProcess={this.props.followingProcess}
+                        toggleFollowInProgress={this.props.toggleFollowInProgress}
                         onPageClick={this.onPageClick}
                     />
                 )
@@ -51,9 +53,9 @@ class UsersSubContainer extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-    const { users, totalCount, pageSize, currentPage, isFetching } = state.usersPage;
+    const { users, totalCount, pageSize, currentPage, isFetching, followingProcess } = state.usersPage;
 
-    return { users, totalCount, pageSize, currentPage, isFetching };
+    return { users, totalCount, pageSize, currentPage, isFetching, followingProcess };
 };
 
 export const UsersContainer = connect(mapStateToProps, {
@@ -62,4 +64,5 @@ export const UsersContainer = connect(mapStateToProps, {
     setTotalCount,
     setCurrentPage,
     toggleIsFetching,
+    toggleFollowInProgress,
 })(UsersSubContainer);
