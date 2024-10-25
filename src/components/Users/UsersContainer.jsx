@@ -1,35 +1,16 @@
 import React from "react";
 import { connect } from "react-redux";
-import { setUsers, toggleFollow, setCurrentPage, setTotalCount, toggleIsFetching, toggleFollowInProgress } from "../../redux/usersReducer";
+import { getUsers, toggleFollow } from "../../redux/usersReducer";
 import { Users } from "./Users";
 import loader from "./../../bouncing-circles.svg";
-import { API } from "../../api";
 
 class UsersSubContainer extends React.Component {
     componentDidMount() {
-        this.props.toggleIsFetching(true);
-
-        API
-            .getUsers(this.props.currentPage, this.props.pageSize)
-            .then((data) => {
-                this.props.setUsers(data.items);
-                this.props.setTotalCount(data.totalCount);
-
-                this.props.toggleIsFetching(false);
-            });
+        this.props.getUsers(this.props.currentPage, this.props.pageSize);
     }
 
     onPageClick = (page) => {
-        this.props.setCurrentPage(page);
-        this.props.toggleIsFetching(true);
-
-        API
-            .getUsers(page, this.props.pageSize)
-            .then((data) => {
-                this.props.setUsers(data.items);
-
-                this.props.toggleIsFetching(false);
-            });
+        this.props.getUsers(page, this.props.pageSize)
     };
 
     render() {
@@ -44,7 +25,6 @@ class UsersSubContainer extends React.Component {
                         currentPage={this.props.currentPage}
                         toggleFollow={this.props.toggleFollow}
                         followingProcess={this.props.followingProcess}
-                        toggleFollowInProgress={this.props.toggleFollowInProgress}
                         onPageClick={this.onPageClick}
                     />
                 )
@@ -59,10 +39,6 @@ const mapStateToProps = (state) => {
 };
 
 export const UsersContainer = connect(mapStateToProps, {
+    getUsers,
     toggleFollow,
-    setUsers,
-    setTotalCount,
-    setCurrentPage,
-    toggleIsFetching,
-    toggleFollowInProgress,
 })(UsersSubContainer);

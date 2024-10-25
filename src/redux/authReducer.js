@@ -1,3 +1,5 @@
+import { API } from "../api";
+
 const SET_USER_DATA = 'SET_USER_DATA';
 
 const initialState = {
@@ -22,3 +24,9 @@ export const authReducer = (state = initialState, action) => {
 }
 
 export const setUserData = (data) => ({ type: SET_USER_DATA, ...data });
+
+export const authMe = () => {
+    return (dispatch) => {
+        API.authMe().then((data) => dispatch(setUserData(data.data)));
+    }
+}
