@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, Redirect } from "react-router-dom";
 import styles from "./Dialogs.module.css";
 import React from "react";
 
@@ -10,12 +10,14 @@ const DialogItem = ({ id, name }) => {
   );
 };
 
-export const Dialogs = ({ users, messages, drafts, draftText, draftTextChange, addDraft }) => {
+export const Dialogs = ({ users, messages, drafts, draftText, draftTextChange, addDraft, isAuth }) => {
   const textRef = React.createRef();
 
   const onDraftTextChahnge = () => draftTextChange(textRef.current.value);
 
   const onAddDraft = () => addDraft();
+
+  if (!isAuth) return <Redirect to="/login" />;
 
   return (
     <div className={styles.container}>

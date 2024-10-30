@@ -4,8 +4,9 @@ import { Dialogs } from "./Dialogs";
 
 const mapStateToProps = (state) => {
     const { users, messages, drafts, draftText } = state.dialogsPage;
+    const { isAuth } = state.auth;
 
-    return { users, messages, drafts, draftText }; 
+    return { users, messages, drafts, draftText, isAuth }; 
 };
 
 export const DialogsContainer = connect(mapStateToProps, { addDraft, draftTextChange })(Dialogs);

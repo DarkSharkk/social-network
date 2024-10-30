@@ -5,6 +5,7 @@ import { HeaderContainer } from "./components/Header/HeaderContainer";
 import { Navbar } from "./components/Navbar/Navbar";
 import { DialogsContainer } from "./components/Dialogs/DialogsContainer";
 import { UsersContainer } from "./components/Users/UsersContainer";
+import { Login } from "./components/Login/Login";
 import "./App.css";
 
 const App = (props) => {
@@ -18,6 +19,7 @@ const App = (props) => {
             <Route path="/profile/:userId?" render={() => <Profile />} />
             <Route path="/messages" render={() => <DialogsContainer />} />
             <Route path="/users" render={() => <UsersContainer />} />
+            <Route path="/login" render={() => <Login />} />
           </div>
         </div>
       </Provider>
