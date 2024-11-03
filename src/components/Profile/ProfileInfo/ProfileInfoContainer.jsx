@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
+import { compose } from "redux";
 import { ProfileInfo } from "./ProfileInfo";
 import { getProfile } from "../../../redux/profileReducer";
 import loader from "./../../../bouncing-circles.svg";
@@ -26,6 +27,7 @@ const mapStateToProps = (state) => ({
     profile: state.profilePage.profile
 });
 
-export const ProfileInfoContainer = connect(mapStateToProps, { 
-    getProfile, 
-})(withRouter(ProfileInfoSubContainer));
+export const ProfileInfoContainer = compose(
+    connect(mapStateToProps, { getProfile }),
+    withRouter
+)(ProfileInfoSubContainer);

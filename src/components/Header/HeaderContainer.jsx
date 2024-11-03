@@ -1,5 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
+import { compose } from "redux";
 import { Header } from "./Header";
 import { authMe } from "../../redux/authReducer";
 
@@ -18,4 +19,6 @@ const mapStateToProps = (state) => ({
     isAuth: state.auth.isAuth,
 });
 
-export const HeaderContainer = connect(mapStateToProps, { authMe })(HeaderSubContainer);
+export const HeaderContainer = compose(
+    connect(mapStateToProps, { authMe })
+)(HeaderSubContainer);;

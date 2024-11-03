@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { getUsers, toggleFollow } from "../../redux/usersReducer";
 import { Users } from "./Users";
 import loader from "./../../bouncing-circles.svg";
+import { compose } from "redux";
 
 class UsersSubContainer extends React.Component {
     componentDidMount() {
@@ -38,7 +39,6 @@ const mapStateToProps = (state) => {
     return { users, totalCount, pageSize, currentPage, isFetching, followingProcess };
 };
 
-export const UsersContainer = connect(mapStateToProps, {
-    getUsers,
-    toggleFollow,
-})(UsersSubContainer);
+export const UsersContainer = compose(
+    connect(mapStateToProps, { getUsers, toggleFollow })
+)(UsersSubContainer);
