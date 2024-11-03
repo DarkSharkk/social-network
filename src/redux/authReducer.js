@@ -15,7 +15,7 @@ export const authReducer = (state = initialState, action) => {
             return {
                 ...state,
                 ...action,
-                isAuth: true
+                isAuth: !!action.login
             }
         default: {
             return state;

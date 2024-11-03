@@ -1,6 +1,7 @@
 import { connect } from "react-redux";
-import { addDraft, draftTextChange } from "../../redux/dialogsReducer";
 import { Dialogs } from "./Dialogs";
+import { withAuthRedirect } from "../../hocs/withAuthRedirect";
+import { addDraft, draftTextChange } from "../../redux/dialogsReducer";
 
 const mapStateToProps = (state) => {
     const { users, messages, drafts, draftText } = state.dialogsPage;
@@ -9,4 +10,4 @@ const mapStateToProps = (state) => {
     return { users, messages, drafts, draftText, isAuth }; 
 };
 
-export const DialogsContainer = connect(mapStateToProps, { addDraft, draftTextChange })(Dialogs);
+export const DialogsContainer = connect(mapStateToProps, { addDraft, draftTextChange })(withAuthRedirect(Dialogs));

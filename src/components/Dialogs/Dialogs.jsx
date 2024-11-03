@@ -10,14 +10,12 @@ const DialogItem = ({ id, name }) => {
   );
 };
 
-export const Dialogs = ({ users, messages, drafts, draftText, draftTextChange, addDraft, isAuth }) => {
+export const Dialogs = ({ users, messages, drafts, draftText, draftTextChange, addDraft }) => {
   const textRef = React.createRef();
 
   const onDraftTextChahnge = () => draftTextChange(textRef.current.value);
 
   const onAddDraft = () => addDraft();
-
-  if (!isAuth) return <Redirect to="/login" />;
 
   return (
     <div className={styles.container}>
