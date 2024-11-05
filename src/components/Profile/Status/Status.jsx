@@ -4,18 +4,34 @@ import styles from './Status.module.css';
 
 export class Status extends React.Component {
     state = {
-        isEditMode: false
+        isEditMode: false,
+        status: this.props.status,
+    }
+
+    onStatusChange = (e) => {
+        this.setState({ status: e.currentTarget.value });
     }
 
     toggleEditMode = () => {
-        this.setState({ isEditMode: !this.state.isEditMode })
+        this.setState({ isEditMode: !this.state.isEditMode });
+        if (this.state.isEditMode) {
+            this.props.updateStatus(this.state.status);
+        }
     }
     
     render() {
         return (
             <div className={styles.status}>
                 {this.state.isEditMode 
-                    ? <input type="text" value={this.props.status} onBlur={this.toggleEditMode} autoFocus /> 
+                    ? (
+                        <input 
+                            type="text"
+                            value={this.state.status}
+                            onChange={(e) => this.onStatusChange(e)}
+                            onBlur={this.toggleEditMode}
+                            autoFocus
+                        />
+                    ) 
                     : <span onDoubleClick={this.toggleEditMode}>{this.props.status}</span>}
             </div>
         )
