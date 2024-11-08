@@ -1,0 +1,13 @@
+.formControl {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+
+    span {
+        color: red;
+    }
+}
+
+.error {
+    border: 1px solid red;
+}

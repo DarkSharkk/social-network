@@ -1,13 +1,22 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import { Field, reduxForm } from "redux-form";
+import { maxLengthCreator, required } from "../../utils/validation";
+import { Textarea } from "../common/FormControl/FormControl";
 
 import styles from "./Dialogs.module.css";
+
+const maxLength50 = maxLengthCreator(50);
 
 const AddMessageForm = ({ handleSubmit }) => {
     return (
         <form onSubmit={handleSubmit} className={styles.drafts}>
-            <Field name="message" component="textarea" />
+            <Field
+                name="message"
+                placeholder="Enter message"
+                component={Textarea}
+                validate={[ required, maxLength50 ]}
+            />
             <button>Save</button>
         </form>
     );
@@ -18,7 +27,7 @@ const AddMessageReduxForm = reduxForm({ form: 'dialogs' })(AddMessageForm);
 const DialogItem = ({ id, name }) => {
     return (
         <NavLink to={`/messages/${id}`}>
-        <div>{name}</div>
+            <div>{name}</div>
         </NavLink>
     );
 };
