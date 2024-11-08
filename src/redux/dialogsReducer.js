@@ -1,5 +1,4 @@
 const ADD_DRAFT = 'ADD-DRAFT';
-const UPDATE_DRAFT_TEXT = 'UPDATE-DRAFT-TEXT';
 
 const initialState = {
     messages: [
@@ -13,29 +12,18 @@ const initialState = {
         {id: 3, name: "User 3"}
     ],
     drafts: [],
-    draftText: "",
 };
 
 export const dialogsReducer = (state = initialState, action) => {
     switch(action.type) {
-        case UPDATE_DRAFT_TEXT:      
-            return {
-                ...state,
-                draftText: action.newDraftText,
-            };
         case ADD_DRAFT:
             return {
                 ...state,
-                drafts: [...state.drafts, state.draftText],
-                draftText: "",
+                drafts: [...state.drafts, action.draftText],
             };
         default:
             return state;
     }
 };
 
-export const draftTextChange = (newDraftText) => ({
-    type: UPDATE_DRAFT_TEXT, newDraftText
-});
-
-export const addDraft = () => ({ type: ADD_DRAFT });
+export const addDraft = (draftText) => ({ type: ADD_DRAFT, draftText });

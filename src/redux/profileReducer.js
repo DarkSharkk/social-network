@@ -1,7 +1,6 @@
 import { API } from "../api";
 
 const ADD_POST = 'ADD-POST';
-const UPDATE_POST_TEXT = 'UPDATE-POST-TEXT';
 const SET_USER_PROFILE = 'SET_USER_PROFILE';
 const SET_USER_STATUS = 'SET_USER_STATUS';
 
@@ -10,26 +9,19 @@ const initialState = {
         {userName: "Jack Harlow", location: "London"},
         {userName: "Bob Brown", location: "Manchester"}
     ],
-    postText: "",
     profile: null,
     status: '',
 };
 
 export const profileReducer = (state = initialState, action) => {
     switch(action.type) {
-        case UPDATE_POST_TEXT: 
-            return {
-                ...state,
-                postText: action.newPostText,
-            };
         case ADD_POST: 
             return {
                 ...state,
                 posts: [
                     ...state.posts,
-                    { userName: state.postText, location: "Liverpool" }
+                    { userName: action.postText, location: "Liverpool" }
                 ],
-                postText: "",
             };
         case SET_USER_PROFILE:
             return {
@@ -46,11 +38,7 @@ export const profileReducer = (state = initialState, action) => {
         }
 };
 
-export const postTextChange = (newPostText) => ({
-    type: UPDATE_POST_TEXT, newPostText 
-});
-
-export const addPost = () => ({ type: ADD_POST });
+export const addPost = (postText) => ({ type: ADD_POST, postText });
 
 const setUserProfile = (profile) => ({ type: SET_USER_PROFILE, profile });
 

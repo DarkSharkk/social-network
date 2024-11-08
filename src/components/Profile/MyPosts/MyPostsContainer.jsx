@@ -1,14 +1,14 @@
 import { connect } from "react-redux";
 import { compose } from "redux";
-import { addPost, postTextChange } from "../../../redux/profileReducer";
+import { addPost } from "../../../redux/profileReducer";
 import { MyPosts } from "./MyPosts";
 
 const mapStateToProps = (state) => {
-    const { posts, postText } = state.profilePage;
+    const { posts } = state.profilePage;
     
-    return { posts, postText };
+    return { posts };
 };
 
 export const MyPostsContainer = compose(
-    connect(mapStateToProps, { postTextChange, addPost })
+    connect(mapStateToProps, { addPost })
 )(MyPosts);
