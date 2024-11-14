@@ -23,10 +23,26 @@ export const authReducer = (state = initialState, action) => {
     }
 }
 
-export const setUserData = (data) => ({ type: SET_USER_DATA, ...data });
+const setUserData = (data) => ({ type: SET_USER_DATA, ...data });
 
 export const authMe = () => {
     return (dispatch) => {
         API.authMe().then((data) => dispatch(setUserData(data.data)));
+    }
+}
+
+export const login = ({ email, password, rememberMe }) => {
+    return (dispatch) => {
+        API.login({ email, password, rememberMe }).then(() => dispatch(authMe()));
+    }
+};
+
+export const logout = () => {
+    return (dispatch) => {
+        API.logout().then(({ resultCode }) => {
+            if (!resultCode) {
+                dispatch(setUserData({ login: null, userId: null, email: null }));
+            }
+        });
     }
 }

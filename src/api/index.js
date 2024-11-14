@@ -32,6 +32,16 @@ export const API = {
             .get('/auth/me')
             .then(({ data }) => data)
     },
+    login: ({ email, password, rememberMe }) => {
+        return instance
+            .post('/auth/login', { email, password, rememberMe })
+            .then(({ data }) => data)
+    },
+    logout: () => {
+        return instance
+            .delete('/auth/login')
+            .then(({ data }) => data);
+    },
     followUser: (id) => {
         return instance
             .post(`/follow/${id}`)

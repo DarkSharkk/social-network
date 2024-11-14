@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { compose } from "redux";
 import { Header } from "./Header";
-import { authMe } from "../../redux/authReducer";
+import { authMe, logout } from "../../redux/authReducer";
 
 class HeaderSubContainer extends React.Component {
     componentDidMount() {
@@ -20,5 +20,5 @@ const mapStateToProps = (state) => ({
 });
 
 export const HeaderContainer = compose(
-    connect(mapStateToProps, { authMe })
+    connect(mapStateToProps, { authMe, logout })
 )(HeaderSubContainer);;

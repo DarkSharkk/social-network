@@ -9,8 +9,9 @@ export const Header = (props) => {
             </div>
 
             <NavLink to="/login" className={styles.link}>
-                <div>
+                <div className={styles.login}>
                     <span className={styles.text}>{props.isAuth ? props.login : "Login"}</span>
+                    {props.isAuth ? <button onClick={props.logout}>Log out</button> : null}
                 </div>
             </NavLink>
         </header>

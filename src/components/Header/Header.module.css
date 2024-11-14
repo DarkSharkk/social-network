@@ -19,3 +19,9 @@
     font-weight: 600;
     color: blueviolet;
 }
+
+.login {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}

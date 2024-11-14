@@ -4,15 +4,18 @@ import { required } from "../../utils/validation";
 import { Input } from "../common/FormControl/FormControl";
 
 import styles from './Login.module.css';
+import { login } from "../../redux/authReducer";
+import { connect } from "react-redux";
+import { Redirect } from "react-router-dom";
 
 const LoginForm = ({ handleSubmit }) => {
     return (
         <form onSubmit={handleSubmit} className={styles.form}>
             <div>
                 <Field 
-                    name="login"
+                    name="email"
                     component={Input}
-                    placeholder="Login"
+                    placeholder="Email"
                     validate={[required]}
                 />
             </div>
@@ -22,6 +25,7 @@ const LoginForm = ({ handleSubmit }) => {
                     component={Input}
                     placeholder="Password"
                     validate={[required]}
+                    type="password"
                 />
             </div>
             <div>
@@ -35,10 +39,12 @@ const LoginForm = ({ handleSubmit }) => {
 
 const LoginReduxForm = reduxForm({ form: 'login' })(LoginForm);
 
-export const Login = () => {
-    const handleSubmit = (formData) => {
-        console.log(formData);
+const Login = ({ isAuth, login }) => {
+    const handleSubmit = ({ email, password, rememberMe }) => {
+        login({ email, password, rememberMe: true });
     };
+
+    if (isAuth) return <Redirect to="/profile" />; 
 
     return (
         <div className={styles.wrapper}>
@@ -47,3 +53,9 @@ export const Login = () => {
         </div>
     );
 }
+
+const mapStateToProps = (state) => ({
+    isAuth: state.auth.isAuth
+});
+
+export const LoginContainer = connect(mapStateToProps, { login })(Login); 
