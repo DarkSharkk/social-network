@@ -8,7 +8,7 @@ import { login } from "../../redux/authReducer";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 
-const LoginForm = ({ handleSubmit }) => {
+const LoginForm = ({ handleSubmit, error }) => {
     return (
         <form onSubmit={handleSubmit} className={styles.form}>
             <div>
@@ -32,6 +32,7 @@ const LoginForm = ({ handleSubmit }) => {
                 <Field name="rememberMe" component="input" type="checkbox" />
                 <span>Remember me</span>
             </div>
+            {error && <div className={styles.error}>{error}</div>}
             <button>Login</button>
         </form>
     );

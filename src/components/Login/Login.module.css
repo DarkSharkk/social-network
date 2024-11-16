@@ -8,3 +8,10 @@
     gap: 8px;
     align-items: flex-start;
 }
+
+.error {
+    color: red;
+    border: 2px solid rgb(168, 6, 6);
+    margin: 4px 0;
+    padding: 4px;
+}

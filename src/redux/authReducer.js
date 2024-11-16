@@ -1,3 +1,4 @@
+import { stopSubmit } from "redux-form";
 import { API } from "../api";
 
 const SET_USER_DATA = 'SET_USER_DATA';
@@ -33,9 +34,13 @@ export const authMe = () => {
 
 export const login = ({ email, password, rememberMe }) => {
     return (dispatch) => {
-        API.login({ email, password, rememberMe }).then((response) => {
-            if (!response.resultCode) {
+        API.login({ email, password, rememberMe }).then(({ resultCode, messages }) => {
+            if (!resultCode) {
                 dispatch(authMe());
+            } else {
+                const errorMessage = messages.length ? messages[0] : "Something went wrong."
+
+                dispatch(stopSubmit('login', { _error: errorMessage }));
             }
         });
     }
