@@ -33,7 +33,11 @@ export const authMe = () => {
 
 export const login = ({ email, password, rememberMe }) => {
     return (dispatch) => {
-        API.login({ email, password, rememberMe }).then(() => dispatch(authMe()));
+        API.login({ email, password, rememberMe }).then((response) => {
+            if (!response.resultCode) {
+                dispatch(authMe());
+            }
+        });
     }
 };
 
