@@ -8,7 +8,12 @@ import loader from "./../../../bouncing-circles.svg";
 
 class ProfileInfoSubContainer extends React.Component {
     componentDidMount() {
-        const { userId = 2 } = this.props.match.params;
+        let { userId } = this.props.match.params;
+
+        if (!userId) {
+            userId = this.props.authorizedUserId;
+        }
+
         this.props.getProfile(userId);
         this.props.getProfileStatus(userId);
     }
@@ -32,6 +37,7 @@ class ProfileInfoSubContainer extends React.Component {
 const mapStateToProps = (state) => ({
     profile: state.profilePage.profile,
     status: state.profilePage.status,
+    authorizedUserId: state.auth.id,
 });
 
 export const ProfileInfoContainer = compose(

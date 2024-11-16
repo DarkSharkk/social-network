@@ -4,7 +4,7 @@ import { API } from "../api";
 const SET_USER_DATA = 'SET_USER_DATA';
 
 const initialState = {
-    userId: null,
+    id: null,
     login: null,
     email: null,
     isAuth: false,
@@ -50,7 +50,7 @@ export const logout = () => {
     return (dispatch) => {
         API.logout().then(({ resultCode }) => {
             if (!resultCode) {
-                dispatch(setUserData({ login: null, userId: null, email: null }));
+                dispatch(setUserData({ login: null, id: null, email: null }));
             }
         });
     }
