@@ -28,7 +28,7 @@ const setUserData = (data) => ({ type: SET_USER_DATA, ...data });
 
 export const authMe = () => {
     return (dispatch) => {
-        API.authMe().then((data) => dispatch(setUserData(data.data)));
+        return API.authMe().then((data) => dispatch(setUserData(data.data)));
     }
 }
 
