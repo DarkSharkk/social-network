@@ -12,6 +12,11 @@ class ProfileInfoSubContainer extends React.Component {
 
         if (!userId) {
             userId = this.props.authorizedUserId;
+
+            if (!userId) {
+                this.props.history.push('/login');
+                return;
+            }
         }
 
         this.props.getProfile(userId);
