@@ -1,45 +1,36 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import styles from './Status.module.css';
 
-export class Status extends React.Component {
-    state = {
-        isEditMode: false,
-        status: this.props.status,
-    }
+export const Status = (props) => {
+    const [isEditMode, setIsEditMode] = useState(false);
+    const [status, setStatus] = useState(props.status);
 
-    onStatusChange = (e) => {
-        this.setState({ status: e.currentTarget.value });
-    }
+    const onStatusChange = (e) => setStatus(e.currentTarget.value);
 
-    toggleEditMode = () => {
-        this.setState({ isEditMode: !this.state.isEditMode });
-        if (this.state.isEditMode) {
-            this.props.updateStatus(this.state.status);
+    const toggleEditMode = () => {
+        setIsEditMode(!isEditMode);
+        
+        if (isEditMode) {
+            props.updateStatus(status);
         }
     }
 
-    componentDidUpdate(prevProps, prevState) {
-        if (prevProps.status !== this.props.status) {
-            this.setState({ status: this.props.status });
-        }
-    }
-    
-    render() {
-        return (
-            <div className={styles.status}>
-                {this.state.isEditMode 
+    useEffect(() => setStatus(props.status), [props.status]);
+
+    return (
+        <div className={styles.status}>
+                {isEditMode 
                     ? (
                         <input 
                             type="text"
-                            value={this.state.status}
-                            onChange={(e) => this.onStatusChange(e)}
-                            onBlur={this.toggleEditMode}
+                            value={status}
+                            onChange={(e) => onStatusChange(e)}
+                            onBlur={toggleEditMode}
                             autoFocus
                         />
                     ) 
-                    : <span onDoubleClick={this.toggleEditMode}>{this.props.status}</span>}
-            </div>
-        )
-    }
-}
+                    : <span onDoubleClick={toggleEditMode}>{status}</span>}
+        </div>
+    );
+};
