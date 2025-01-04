@@ -1,8 +1,7 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
-import avatar from "./../../avatar.png";
 
 import styles from "./Users.module.css";
+import { User } from "./User/User";
 
 export const Users = (props) => {
     const pagesCount = Math.ceil(props.totalCount / props.pageSize);
@@ -28,23 +27,7 @@ export const Users = (props) => {
 
             <div>
                 {props.users.map((user) => (
-                    <div className={styles.userItem} key={user.id}>
-                        <NavLink to={`/profile/${user.id}`}>
-                            <img src={user.photos.small ?? avatar} alt="" />
-                        </NavLink>
-                        
-                        <div className={styles.info}>
-                            <span>{user.name}</span>
-                            <span>{'user.location'}</span>
-
-                            <button 
-                                onClick={() => props.toggleFollow(user.id, user.followed)} 
-                                disabled={props.followingProcess.isInProgress && props.followingProcess.userId === user.id}
-                            >
-                                {user.followed ? "Unfollow" : "Follow"}
-                            </button>
-                        </div>
-                    </div>
+                    <User {...user} toggleFollow={props.toggleFollow} followingProcess={props.followingProcess} />
                 ))}
             </div>
         </div>
