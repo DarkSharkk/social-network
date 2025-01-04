@@ -93,41 +93,41 @@ export const toggleFollowInProgress = ({ isInProgress, userId }) => ({
 });
 
 export const getUsers = (currentPage, pageSize) => {
-    return (dispatch) => {
+    return async (dispatch) => {
         dispatch(toggleIsFetching(true));
 
-        API
-            .getUsers(currentPage, pageSize)
-            .then((data) => {
-                dispatch(setCurrentPage(currentPage))
-                dispatch(setUsers(data.items));
-                dispatch(setTotalCount(data.totalCount));
+        const data = await API.getUsers(currentPage, pageSize);
+        
+        if (data) {
+            dispatch(setCurrentPage(currentPage));
+            dispatch(setUsers(data.items));
+            dispatch(setTotalCount(data.totalCount));
+        }
 
-                dispatch(toggleIsFetching(false));
-            });
+        dispatch(toggleIsFetching(false));
     }
 }
 
 export const toggleFollow = (id, followed) => {
-    return (dispatch) => {
+    return async (dispatch) => {
         dispatch(toggleFollowInProgress({isInProgress: true, userId: id}));
 
-        followed 
-            ? API
-                .unfollowUser(id)
-                .then(({ data }) => {
-                    if (!data.resultCode) {
-                        dispatch(toggleSubscribe(id));
-                    }
-                    dispatch(toggleFollowInProgress({isInProgress: false, userId: id}));
-                })
-            : API
-                .followUser(id)
-                .then(({ data }) => {
-                    if (!data.resultCode) {
-                        dispatch(toggleSubscribe(id));
-                    }
-                    dispatch(toggleFollowInProgress({isInProgress: false, userId: id}));
-                })
+        if (followed) {
+            const { data } = await API.unfollowUser(id)
+
+            if (!data.resultCode) {
+                dispatch(toggleSubscribe(id));
+            }
+
+            dispatch(toggleFollowInProgress({isInProgress: false, userId: id}));
+        } else {
+            const { data } = await API.followUser(id);
+            
+            if (!data.resultCode) {
+                dispatch(toggleSubscribe(id));
+            }
+
+            dispatch(toggleFollowInProgress({isInProgress: false, userId: id}));
+        }
     }
 }

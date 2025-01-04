@@ -27,31 +27,36 @@ export const authReducer = (state = initialState, action) => {
 const setUserData = (data) => ({ type: SET_USER_DATA, ...data });
 
 export const authMe = () => {
-    return (dispatch) => {
-        return API.authMe().then((data) => dispatch(setUserData(data.data)));
+    return async (dispatch) => {
+        const data = await API.authMe();
+        dispatch(setUserData(data.data));
     }
 }
 
 export const login = ({ email, password, rememberMe }) => {
-    return (dispatch) => {
-        API.login({ email, password, rememberMe }).then(({ resultCode, messages }) => {
-            if (!resultCode) {
-                dispatch(authMe());
-            } else {
-                const errorMessage = messages.length ? messages[0] : "Something went wrong."
+    return async (dispatch) => {
+        debugger;
+        const { resultCode, messages } = await API.login({ email, password, rememberMe });
 
-                dispatch(stopSubmit('login', { _error: errorMessage }));
-            }
-        });
+        if (!resultCode) {
+            dispatch(authMe());
+        } else {
+            const errorMessage = messages.length
+                ? messages[0]
+                : "Something went wrong.";
+
+            dispatch(stopSubmit("login", { _error: errorMessage }));
+        }
+        
     }
 };
 
 export const logout = () => {
-    return (dispatch) => {
-        API.logout().then(({ resultCode }) => {
-            if (!resultCode) {
-                dispatch(setUserData({ login: null, id: null, email: null }));
-            }
-        });
+    return async (dispatch) => {
+        const { resultCode } = await API.logout()
+        
+        if (!resultCode) {
+            dispatch(setUserData({ login: null, id: null, email: null }));
+        }
     }
 }
