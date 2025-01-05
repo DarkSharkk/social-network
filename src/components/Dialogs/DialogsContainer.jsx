@@ -11,7 +11,9 @@ const mapStateToProps = (state) => {
     return { users, messages, drafts, draftText, isAuth }; 
 };
 
-export const DialogsContainer = compose(
+const DialogsContainer = compose(
     connect(mapStateToProps, { addDraft }), 
     withAuthRedirect
 )(Dialogs);
+
+export default DialogsContainer;

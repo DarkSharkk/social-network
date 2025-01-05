@@ -4,13 +4,14 @@ import { connect } from "react-redux";
 import { Profile } from "./components/Profile/Profile";
 import { HeaderContainer } from "./components/Header/HeaderContainer";
 import { Navbar } from "./components/Navbar/Navbar";
-import { DialogsContainer } from "./components/Dialogs/DialogsContainer";
 import { UsersContainer } from "./components/Users/UsersContainer";
 import { LoginContainer } from "./components/Login/Login";
 import "./App.css";
 import { initializeApp } from "./redux/appReducer";
 import loader from "./bouncing-circles.svg";
 import { compose } from "redux";
+
+const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsContainer'));
 
 class App extends React.Component {
     componentDidMount() {
@@ -26,11 +27,13 @@ class App extends React.Component {
             <div className="app-container">
                 <HeaderContainer />
                 <Navbar />
-                 <div className="content">
-                    <Route path="/profile/:userId?" render={() => <Profile />} />
-                    <Route path="/messages" render={() => <DialogsContainer />} />
-                    <Route path="/users" render={() => <UsersContainer />} />
-                    <Route path="/login" render={() => <LoginContainer />} />
+                <div className="content">
+                    <React.Suspense fallback={<div>Page loading...</div>}>
+                        <Route path="/profile/:userId?" render={() => <Profile />} />
+                        <Route path="/messages" render={() => <DialogsContainer />} />
+                        <Route path="/users" render={() => <UsersContainer />} />
+                        <Route path="/login" render={() => <LoginContainer />} />
+                    </React.Suspense>
                 </div>
             </div>
         )
