@@ -1,0 +1,21 @@
+.paginator {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.pagination {
+    display: flex;
+    gap: 8px;
+
+    span:hover {
+        cursor: pointer;
+        color: blueviolet;
+    }
+}
+
+.activePage {
+    font-weight: 600;
+    color: blueviolet;
+}

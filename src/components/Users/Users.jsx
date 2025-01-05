@@ -1,33 +1,18 @@
 import React from "react";
 
-import styles from "./Users.module.css";
 import { User } from "./User/User";
+import { Paginator } from "../common/Paginator/Paginator";
 
-export const Users = (props) => {
-    const pagesCount = Math.ceil(props.totalCount / props.pageSize);
+import styles from "./Users.module.css";
 
-    let pages = [];
-    for (let i = 1; i <= pagesCount; i++) {
-        pages.push(i);
-    }
-
+export const Users = ({ totalCount, pageSize, currentPage, onPageClick, users, toggleFollow, followingProcess }) => {
     return (
         <div className={styles.usersPage}>
-            <div className={styles.pagination}>
-                {pages.map((page) => (
-                    <span 
-                        className={props.currentPage === page ? styles.activePage : ''} 
-                        onClick={() => props.onPageClick(page)}
-                        key={`page-${page}`}
-                    >
-                        {page}
-                    </span>
-                ))}
-            </div>
+            <Paginator totalCount={totalCount} pageSize={pageSize} pagesBlockSize={30} currentPage={currentPage} onPageClick={onPageClick} />
 
             <div>
-                {props.users.map((user) => (
-                    <User {...user} toggleFollow={props.toggleFollow} followingProcess={props.followingProcess} />
+                {users.map((user) => (
+                    <User {...user} toggleFollow={toggleFollow} followingProcess={followingProcess} />
                 ))}
             </div>
         </div>
