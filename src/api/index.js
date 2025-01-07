@@ -27,6 +27,14 @@ export const API = {
             .put('/profile/status', { status })
             .then(({ data }) => data);
     },
+    updateProfilePhoto: (photo) => {
+        const formData = new FormData();
+        formData.append("image", photo);
+
+        return instance
+            .put('/profile/photo', formData)
+            .then(({ data }) => data);
+    },
     authMe: () => {
         return instance
             .get('/auth/me')

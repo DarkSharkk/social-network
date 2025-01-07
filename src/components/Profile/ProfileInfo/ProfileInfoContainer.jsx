@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import { compose } from "redux";
 import { ProfileInfo } from "./ProfileInfo";
-import { getProfile, getProfileStatus, updateProfileStatus } from "../../../redux/profileReducer";
+import { getProfile, getProfileStatus, updateProfileStatus, updateProfilePhoto } from "../../../redux/profileReducer";
 import loader from "./../../../bouncing-circles.svg";
 
 class ProfileInfoSubContainer extends React.Component {
@@ -34,6 +34,8 @@ class ProfileInfoSubContainer extends React.Component {
                 profile={this.props.profile}
                 status={this.props.status}
                 updateStatus={this.props.updateProfileStatus}
+                updatePhoto={this.props.updateProfilePhoto}
+                isOwner={!this.props.match.params.userId}
             />
         )
     }
@@ -46,6 +48,6 @@ const mapStateToProps = (state) => ({
 });
 
 export const ProfileInfoContainer = compose(
-    connect(mapStateToProps, { getProfile, getProfileStatus, updateProfileStatus }),
+    connect(mapStateToProps, { getProfile, getProfileStatus, updateProfileStatus, updateProfilePhoto }),
     withRouter
 )(ProfileInfoSubContainer);

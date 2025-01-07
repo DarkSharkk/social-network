@@ -4,6 +4,7 @@ const ADD_POST = 'ADD-POST';
 const DELETE_POST = 'DELETE_POST';
 const SET_USER_PROFILE = 'SET_USER_PROFILE';
 const SET_USER_STATUS = 'SET_USER_STATUS';
+const SET_USER_PHOTO = 'SET_USER_PHOTO';
 
 const initialState = {
     posts: [
@@ -39,6 +40,11 @@ export const profileReducer = (state = initialState, action) => {
                 ...state,
                 status: action.status
             }
+        case SET_USER_PHOTO:
+            return {
+                ...state,
+                profile: { ...state.profile, photos: action.photo }
+            }
         default:
             return state;
         }
@@ -51,6 +57,8 @@ export const deletePost = (userName) => ({ type: DELETE_POST, userName });
 const setUserProfile = (profile) => ({ type: SET_USER_PROFILE, profile });
 
 const setUserStatus = (status) => ({ type: SET_USER_STATUS, status });
+
+const setUserPhoto = (photo) => ({ type: SET_USER_PHOTO, photo })
 
 export const getProfile = (userId) => {
     return async (dispatch) => {
@@ -75,3 +83,13 @@ export const updateProfileStatus = (userStatus) => {
         }
     }
 };
+
+export const updateProfilePhoto = (userPhoto) => {
+    return async (dispatch) => {
+        const { resultCode, data } = await API.updateProfilePhoto(userPhoto);
+
+        if (!resultCode) {
+            dispatch(setUserPhoto(data.photos))
+        }
+    }
+}

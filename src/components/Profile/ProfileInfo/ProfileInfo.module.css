@@ -5,6 +5,10 @@ img {
 .profileInfo {
     display: flex;
     gap: 12px;
+
+    img {
+        max-width: 200px;
+    }
 }
 
 .info {
