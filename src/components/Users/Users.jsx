@@ -12,7 +12,7 @@ export const Users = ({ totalCount, pageSize, currentPage, onPageClick, users, t
 
             <div>
                 {users.map((user) => (
-                    <User {...user} toggleFollow={toggleFollow} followingProcess={followingProcess} />
+                    <User key={user.id} {...user} toggleFollow={toggleFollow} followingProcess={followingProcess} />
                 ))}
             </div>
         </div>
