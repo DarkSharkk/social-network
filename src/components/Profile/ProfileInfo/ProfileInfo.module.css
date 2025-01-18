@@ -1,22 +1,56 @@
 img {
-    width: 264px;
+    width: 276px;
 }
 
 .profileInfo {
     display: flex;
-    gap: 12px;
+    gap: 16px;
 
     img {
         max-width: 200px;
+        max-height: 240px;
     }
 }
 
 .info {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+
+    h3 {
+        margin: 8px 0 0;
+    }
 
     span {
-        font-weight: 600;
+        font-weight: 700;
     }
+}
+
+.infoContent {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin: 16px 0;
+
+    span.value, div.value {
+        color: dimgrey;
+        font-weight: 500;
+    }
+
+    .contacts {
+        margin-left: 6px;
+    }
+}
+
+.infoContentForm {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin: 8px 0;
+}
+
+.error {
+    color: red;
+    border: 2px solid rgb(168, 6, 6);
+    margin: 4px 0;
+    padding: 4px;
 }

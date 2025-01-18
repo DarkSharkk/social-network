@@ -35,6 +35,11 @@ export const API = {
             .put('/profile/photo', formData)
             .then(({ data }) => data);
     },
+    updateProfileInfo: (info) => {
+        return instance
+            .put('/profile', info)
+            .then(({ data }) => data);
+    },
     authMe: () => {
         return instance
             .get('/auth/me')

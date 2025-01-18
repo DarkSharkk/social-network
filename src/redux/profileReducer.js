@@ -1,3 +1,4 @@
+import { stopSubmit } from "redux-form";
 import { API } from "../api";
 
 const ADD_POST = 'ADD-POST';
@@ -90,6 +91,22 @@ export const updateProfilePhoto = (userPhoto) => {
 
         if (!resultCode) {
             dispatch(setUserPhoto(data.photos))
+        }
+    }
+}
+
+export const updateProfileInfo = (userInfo, userId) => {
+    return async (dispatch) => {
+        const { resultCode, messages } = await API.updateProfileInfo(userInfo);
+
+        if (!resultCode) {
+            dispatch(getProfile(userId));
+        } else {
+            const errorMessage = messages.length
+                ? messages[0]
+                : "Something went wrong.";
+        
+            dispatch(stopSubmit("profileInfo", { _error: errorMessage }));
         }
     }
 }
