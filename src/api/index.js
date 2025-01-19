@@ -45,9 +45,9 @@ export const API = {
             .get('/auth/me')
             .then(({ data }) => data)
     },
-    login: ({ email, password, rememberMe }) => {
+    login: ({ email, password, rememberMe, captcha }) => {
         return instance
-            .post('/auth/login', { email, password, rememberMe })
+            .post('/auth/login', { email, password, rememberMe, captcha })
             .then(({ data }) => data)
     },
     logout: () => {
@@ -64,5 +64,10 @@ export const API = {
         return instance
             .delete(`/follow/${id}`)
             .then(({ data }) => data)
+    },
+    getCaptcha: () => {
+        return instance
+            .get('/security/get-captcha-url')
+            .then(({ data }) => data);
     },
 }
