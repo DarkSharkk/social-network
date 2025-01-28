@@ -4,7 +4,23 @@ import { API } from "../api";
 const SET_USER_DATA = 'SET_USER_DATA';
 const SET_CAPTCHA = 'SET_CAPTCHA';
 
-const initialState = {
+type ActionType = typeof SET_USER_DATA | typeof SET_CAPTCHA;
+
+type Action = {
+    type: ActionType,
+    login: State['login'],
+    url: State['captchaUrl'],
+};
+
+type State = {
+    id: number | null,
+    login: string | null,
+    email: string | null,
+    isAuth: boolean,
+    captchaUrl: string | null,
+};
+
+const initialState: State = {
     id: null,
     login: null,
     email: null,
@@ -12,7 +28,7 @@ const initialState = {
     captchaUrl: null,
 };
 
-export const authReducer = (state = initialState, action) => {
+export const authReducer = (state = initialState, action: Action) => {
     switch (action.type) {
         case SET_USER_DATA:
             return {
@@ -32,9 +48,9 @@ export const authReducer = (state = initialState, action) => {
     }
 }
 
-const setUserData = (data) => ({ type: SET_USER_DATA, ...data });
+const setUserData = (data: any) => ({ type: SET_USER_DATA, ...data });
 
-const setCaptcha = (url) => ({  type: SET_CAPTCHA, url });
+const setCaptcha = (url: State['captchaUrl']) => ({  type: SET_CAPTCHA, url });
 
 export const authMe = () => {
     return async (dispatch) => {
@@ -43,7 +59,7 @@ export const authMe = () => {
     }
 }
 
-export const login = ({ email, password, rememberMe, captcha }) => {
+export const login = ({ email, password, rememberMe, captcha }: { email: State['email'], password: string, rememberMe: boolean, captcha: State['captchaUrl'] }) => {
     return async (dispatch) => {
         const { resultCode, messages } = await API.login({ email, password, rememberMe, captcha });
 

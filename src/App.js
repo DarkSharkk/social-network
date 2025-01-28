@@ -7,7 +7,7 @@ import { Navbar } from "./components/Navbar/Navbar";
 import { UsersContainer } from "./components/Users/UsersContainer";
 import { LoginContainer } from "./components/Login/Login";
 import "./App.css";
-import { initializeApp } from "./redux/appReducer";
+import { initializeApp } from "./redux/appReducer.ts";
 import loader from "./bouncing-circles.svg";
 import { compose } from "redux";
 

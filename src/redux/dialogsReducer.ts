@@ -1,6 +1,19 @@
 const ADD_DRAFT = 'ADD-DRAFT';
 
-const initialState = {
+type ActionType = typeof ADD_DRAFT;
+
+type Action = {
+    type: ActionType,
+    draftText: string,
+};
+
+type State = {
+    messages: Array<{ id: number, text: string }>
+    users: Array<{ id: number, name: string }>,
+    drafts: Array<string>,
+};
+
+const initialState: State = {
     messages: [
         {id: 1, text: "Message 1"},
         {id: 2, text: "Message 2"},
@@ -14,7 +27,7 @@ const initialState = {
     drafts: [],
 };
 
-export const dialogsReducer = (state = initialState, action) => {
+export const dialogsReducer = (state = initialState, action: Action) => {
     switch(action.type) {
         case ADD_DRAFT:
             return {
@@ -26,4 +39,4 @@ export const dialogsReducer = (state = initialState, action) => {
     }
 };
 
-export const addDraft = (draftText) => ({ type: ADD_DRAFT, draftText });
+export const addDraft = (draftText: Action['draftText']) => ({ type: ADD_DRAFT, draftText });

@@ -7,7 +7,32 @@ const SET_USER_PROFILE = 'SET_USER_PROFILE';
 const SET_USER_STATUS = 'SET_USER_STATUS';
 const SET_USER_PHOTO = 'SET_USER_PHOTO';
 
-const initialState = {
+type ActionType = 
+    | typeof ADD_POST
+    | typeof DELETE_POST
+    | typeof SET_USER_PROFILE
+    | typeof SET_USER_STATUS
+    | typeof SET_USER_PHOTO;
+
+type Action = {
+    type: ActionType,
+    postText: string,
+    userName: string,
+    profile: any,
+    status: string,
+    photo: {
+        small: string,
+        large: string,
+    },
+};
+
+type State = {
+    posts: Array<{ userName: string, location: string }>
+    profile: any,
+    status: string,
+};
+
+const initialState: State = {
     posts: [
         {userName: "Jack Harlow", location: "London"},
         {userName: "Bob Brown", location: "Manchester"}
@@ -16,7 +41,7 @@ const initialState = {
     status: '',
 };
 
-export const profileReducer = (state = initialState, action) => {
+export const profileReducer = (state = initialState, action: Action) => {
     switch(action.type) {
         case ADD_POST: 
             return {
@@ -51,31 +76,31 @@ export const profileReducer = (state = initialState, action) => {
         }
 };
 
-export const addPost = (postText) => ({ type: ADD_POST, postText });
+export const addPost = (postText: string) => ({ type: ADD_POST, postText });
 
-export const deletePost = (userName) => ({ type: DELETE_POST, userName });
+export const deletePost = (userName: string) => ({ type: DELETE_POST, userName });
 
-const setUserProfile = (profile) => ({ type: SET_USER_PROFILE, profile });
+const setUserProfile = (profile: any) => ({ type: SET_USER_PROFILE, profile });
 
-const setUserStatus = (status) => ({ type: SET_USER_STATUS, status });
+const setUserStatus = (status: string) => ({ type: SET_USER_STATUS, status });
 
-const setUserPhoto = (photo) => ({ type: SET_USER_PHOTO, photo })
+const setUserPhoto = (photo: Action['photo']) => ({ type: SET_USER_PHOTO, photo })
 
-export const getProfile = (userId) => {
+export const getProfile = (userId: string) => {
     return async (dispatch) => {
         const data = await API.getProfile(userId)
         dispatch(setUserProfile(data));
     };
 };
 
-export const getProfileStatus = (userId) => {
+export const getProfileStatus = (userId: string) => {
     return async (dispatch) => {
         const data = await API.getProfileStatus(userId)
         dispatch(setUserStatus(data));
     }
 };
 
-export const updateProfileStatus = (userStatus) => {
+export const updateProfileStatus = (userStatus: string) => {
     return async (dispatch) => {
         const data = API.updateProfileStatus(userStatus);
         
@@ -85,7 +110,7 @@ export const updateProfileStatus = (userStatus) => {
     }
 };
 
-export const updateProfilePhoto = (userPhoto) => {
+export const updateProfilePhoto = (userPhoto: Action['photo']) => {
     return async (dispatch) => {
         const { resultCode, data } = await API.updateProfilePhoto(userPhoto);
 
@@ -95,7 +120,7 @@ export const updateProfilePhoto = (userPhoto) => {
     }
 }
 
-export const updateProfileInfo = (userInfo, userId) => {
+export const updateProfileInfo = (userInfo: string, userId: string) => {
     return async (dispatch) => {
         const { resultCode, messages } = await API.updateProfileInfo(userInfo);
 

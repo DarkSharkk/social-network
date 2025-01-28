@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import { compose } from "redux";
 import { ProfileInfo } from "./ProfileInfo";
-import { getProfile, getProfileStatus, updateProfileStatus, updateProfilePhoto, updateProfileInfo } from "../../../redux/profileReducer";
+import { getProfile, getProfileStatus, updateProfileStatus, updateProfilePhoto, updateProfileInfo } from "../../../redux/profileReducer.ts";
 import loader from "./../../../bouncing-circles.svg";
 
 class ProfileInfoSubContainer extends React.Component {

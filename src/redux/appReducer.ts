@@ -1,12 +1,20 @@
-import { authMe } from "./authReducer";
+import { authMe } from "./authReducer.ts";
 
 const INITIALIZE = 'INITIALIZE';
 
-const initialState = {
+type State = {
+    isInitialize: boolean;
+};
+
+type Action = {
+    type: typeof INITIALIZE;
+}
+
+const initialState: State = {
     isInitialize: false,
 }
 
-export const appReducer = (state = initialState, action) => {
+export const appReducer = (state = initialState, action: Action) => {
     switch (action.type) {
         case INITIALIZE:
             return {

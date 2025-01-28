@@ -1,9 +1,9 @@
 import { combineReducers, createStore, applyMiddleware } from "redux";
-import { appReducer } from "./appReducer";
-import { authReducer } from "./authReducer";
-import { profileReducer } from "./profileReducer";
-import { dialogsReducer } from "./dialogsReducer";
-import { usersReducer } from "./usersReducer";
+import { appReducer } from "./appReducer.ts";
+import { authReducer } from "./authReducer.ts";
+import { profileReducer } from "./profileReducer.ts";
+import { dialogsReducer } from "./dialogsReducer.ts";
+import { usersReducer } from "./usersReducer.ts";
 import { reducer as formReducer } from "redux-form";
 import thunkMiddleware from "redux-thunk";
 

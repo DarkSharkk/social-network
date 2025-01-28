@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { getUsers, toggleFollow } from "../../redux/usersReducer";
+import { getUsers, toggleFollow } from "../../redux/usersReducer.ts";
 import { Users } from "./Users";
 import loader from "./../../bouncing-circles.svg";
 import { compose } from "redux";

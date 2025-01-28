@@ -4,7 +4,7 @@ import { required } from "../../utils/validation";
 import { Input } from "../common/FormControl/FormControl";
 
 import styles from './Login.module.css';
-import { login } from "../../redux/authReducer";
+import { login } from "../../redux/authReducer.ts";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 

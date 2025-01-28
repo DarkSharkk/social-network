@@ -7,7 +7,35 @@ const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE';
 const TOGGLE_IS_FETCHING = 'TOGGLE_IS_FETCHING';
 const TOGGLE_FOLLOW_IN_PROGRESS = 'FOLLOW_IN_PROGRESS';
 
-const initialState = {
+type ActionType = 
+    | typeof TOGGLE_SUBSCRIBE 
+    | typeof SET_USERS
+    | typeof SET_TOTAL_COUNT
+    | typeof SET_CURRENT_PAGE
+    | typeof TOGGLE_IS_FETCHING
+    | typeof TOGGLE_FOLLOW_IN_PROGRESS;
+    
+type State = {
+    users: Array<{ id: number, followed: boolean }>,
+    totalCount: number,
+    pageSize: number,
+    currentPage: number,
+    isFetching: boolean,
+    followingProcess: { isInProgress: boolean, userId: number | null },
+};
+
+type Action = { 
+    type: ActionType,
+    userId: number,
+    users: State['users'],
+    totalCount: State['totalCount'],
+    pageSize: State['pageSize'],
+    currentPage: State['currentPage'],
+    isFetching: State['isFetching'],
+    followingProcess: State['followingProcess'],
+};
+
+const initialState: State = {
     users: [],
     totalCount: 0,
     pageSize: 10,
@@ -19,7 +47,7 @@ const initialState = {
     },
 };
 
-export const usersReducer = (state = initialState, action) => {
+export const usersReducer = (state = initialState, action: Action): State => {
     switch (action.type) {
         case TOGGLE_SUBSCRIBE:
             return {
@@ -68,31 +96,31 @@ export const usersReducer = (state = initialState, action) => {
     }
 };
 
-export const toggleSubscribe = (id) => ({
+export const toggleSubscribe = (id: number) => ({
     type: TOGGLE_SUBSCRIBE, userId: id
 });
 
-export const setUsers = (users) => ({
+export const setUsers = (users: State['users']) => ({
     type: SET_USERS, users
 });
 
-export const setTotalCount = (totalCount) => ({
+export const setTotalCount = (totalCount: State['totalCount']) => ({
     type: SET_TOTAL_COUNT, totalCount
 });
 
-export const setCurrentPage = (currentPage) => ({
+export const setCurrentPage = (currentPage: State['currentPage']) => ({
     type: SET_CURRENT_PAGE, currentPage
 });
 
-export const toggleIsFetching = (isFetching) => ({
+export const toggleIsFetching = (isFetching: State['isFetching']) => ({
     type: TOGGLE_IS_FETCHING, isFetching
 });
 
-export const toggleFollowInProgress = ({ isInProgress, userId }) => ({
+export const toggleFollowInProgress = ({ isInProgress, userId }: { isInProgress: boolean, userId: number }) => ({
     type: TOGGLE_FOLLOW_IN_PROGRESS, followingProcess: { isInProgress, userId }
 });
 
-export const getUsers = (currentPage, pageSize) => {
+export const getUsers = (currentPage: State['currentPage'], pageSize: State['pageSize']) => {
     return async (dispatch) => {
         dispatch(toggleIsFetching(true));
 
@@ -108,7 +136,7 @@ export const getUsers = (currentPage, pageSize) => {
     }
 }
 
-export const toggleFollow = (id, followed) => {
+export const toggleFollow = (id: number, followed: boolean) => {
     return async (dispatch) => {
         dispatch(toggleFollowInProgress({isInProgress: true, userId: id}));
 

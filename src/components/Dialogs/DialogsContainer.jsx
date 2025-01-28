@@ -2,7 +2,7 @@ import { connect } from "react-redux";
 import { compose } from "redux";
 import { Dialogs } from "./Dialogs";
 import { withAuthRedirect } from "../../hocs/withAuthRedirect";
-import { addDraft } from "../../redux/dialogsReducer";
+import { addDraft } from "../../redux/dialogsReducer.ts";
 
 const mapStateToProps = (state) => {
     const { users, messages, drafts, draftText } = state.dialogsPage;
