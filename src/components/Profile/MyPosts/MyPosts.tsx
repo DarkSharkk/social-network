@@ -1,9 +1,14 @@
 import React from "react";
-import { Post } from "./Post/Post";
+import { Post, PostProps } from "./Post/Post.tsx";
 import styles from "./MyPosts.module.css";
 import { Field, reduxForm } from "redux-form";
-import { Textarea } from "../../common/FormControl/FormControl";
-import { required, maxLengthCreator } from "../../../utils/validation";
+import { Textarea } from "../../common/FormControl/FormControl.jsx";
+import { required, maxLengthCreator } from "../../../utils/validation.js";
+
+type Props = {
+    posts: PostProps[],
+    addPost: (post: PostProps) => void,
+};
 
 const maxLength50 = maxLengthCreator(50);
 
@@ -23,7 +28,7 @@ const AddPostForm = ({ handleSubmit }) => {
 
 const AddPostReduxForm = reduxForm({ form: 'profile' })(AddPostForm);
 
-export const MyPosts = ({ posts, addPost }) => {
+export const MyPosts: React.FC<Props> = ({ posts, addPost }) => {
     const onAddPost = (formData) => addPost(formData.post);
 
     return (
@@ -35,7 +40,7 @@ export const MyPosts = ({ posts, addPost }) => {
             {posts.map((post) => (
                 <Post 
                     key={post.userName} 
-                    name={post.userName}
+                    userName={post.userName}
                     location={post.location} 
                 />
             ))}

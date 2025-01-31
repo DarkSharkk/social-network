@@ -1,9 +1,10 @@
 import { connect } from "react-redux";
 import { compose } from "redux";
 import { addPost } from "../../../redux/profileReducer.ts";
-import { MyPosts } from "./MyPosts";
+import { MyPosts } from "./MyPosts.tsx";
+import { AppStateType } from "../../../redux/store.ts";
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state: AppStateType) => {
     const { posts } = state.profilePage;
     
     return { posts };

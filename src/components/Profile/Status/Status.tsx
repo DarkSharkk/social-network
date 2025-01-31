@@ -2,7 +2,12 @@ import React, { useEffect, useState } from "react";
 
 import styles from './Status.module.css';
 
-export const Status = (props) => {
+type Props = {
+    status: string,
+    updateStatus: (status: string) => void,
+};
+
+export const Status = (props: Props) => {
     const [isEditMode, setIsEditMode] = useState(false);
     const [status, setStatus] = useState(props.status);
 

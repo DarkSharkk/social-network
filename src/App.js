@@ -1,10 +1,10 @@
 import React from "react";
 import { Route, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-import { Profile } from "./components/Profile/Profile";
+import { Profile } from "./components/Profile/Profile.tsx";
 import { HeaderContainer } from "./components/Header/HeaderContainer";
 import { Navbar } from "./components/Navbar/Navbar";
-import { UsersContainer } from "./components/Users/UsersContainer";
+import { UsersContainer } from "./components/Users/UsersContainer.tsx";
 import { LoginContainer } from "./components/Login/Login";
 import "./App.css";
 import { initializeApp } from "./redux/appReducer.ts";

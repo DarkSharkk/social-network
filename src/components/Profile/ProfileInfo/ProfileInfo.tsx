@@ -1,32 +1,53 @@
-import { useState } from 'react';
-import { Status } from '../Status/Status';
+import React, { useState } from 'react';
+import { Status } from '../Status/Status.tsx';
 import { Field, reduxForm } from 'redux-form';
 import { Input } from '../../common/FormControl/FormControl';
 import avatar from "./../../../avatar.png";
 
 import styles from './ProfileInfo.module.css';
 
-const InfoContent = ({ profile }) => {
-    const existingContacts = Object.keys(profile.contacts).filter((contact) => profile.contacts[contact]);
+export type ProfileProps = {
+    aboutMe: string,
+    lookingForAJob: boolean,
+    lookingForAJobDescription: string,
+    contacts: Array<any>,
+    userId: number,
+    fullName: string,
+    photos: {
+        large: string
+    }
+};
+
+type Props = {
+    profile: ProfileProps,
+    status: string,
+    isOwner: boolean,
+    updateStatus: (status: string) => void,
+    updatePhoto: (photo: string) => void,
+    updateInfo: (formData: any, userId: number) => void,
+};
+
+const InfoContent: React.FC<ProfileProps> = ({ aboutMe, lookingForAJob, lookingForAJobDescription, contacts }) => {
+    const existingContacts = Object.keys(contacts).filter((contact) => contacts[contact]);
 
     return (
         <div className={styles.infoContent}>
-            <span>about me: {profile.aboutMe}</span>
+            <span>about me: {aboutMe}</span>
 
             <span>
                 job status: 
                 <span className={styles.value}>
-                    {profile.lookingForAJob ? ' Looking for a job' : ' Not looking for a job'}
+                    {lookingForAJob ? ' Looking for a job' : ' Not looking for a job'}
                 </span>
             </span>
-            {profile.lookingForAJobDescription && <div>{profile.lookingForAJobDescription}</div>}
+            {lookingForAJobDescription && <div>{lookingForAJobDescription}</div>}
                 
             <span>
                 contacts: {
                     existingContacts.map((contact) => 
                         <div className={styles.contacts}>
                             {`${contact} - `}
-                            <span className={styles.value}>{profile.contacts[contact]}</span>
+                            <span className={styles.value}>{contacts[contact]}</span>
                         </div>)
                 }
             </span>
@@ -55,9 +76,8 @@ const InfoContentForm = reduxForm({ form: 'profileInfo' })(({ handleSubmit, cont
     );
 });
 
-export const ProfileInfo = ({ profile, status, updateStatus, updatePhoto, updateInfo, isOwner }) => {
+export const ProfileInfo: React.FC<Props> = ({ profile, status, updateStatus, updatePhoto, updateInfo, isOwner }) => {
     const [isEditMode, setIsEditMode] = useState(false);
-    console.log(profile);
 
     const uploadPhoto = (e) => {
         if (e.target?.files.length) {
@@ -83,7 +103,7 @@ export const ProfileInfo = ({ profile, status, updateStatus, updatePhoto, update
                     ? <InfoContentForm initialValues={profile} onSubmit={handleSubmit} contacts={profile.contacts} /> 
                     : (
                         <>
-                            <InfoContent profile={profile} />
+                            <InfoContent {...profile} />
                             <button onClick={() => setIsEditMode(!isEditMode)}>Edit</button>
                         </>
                     )

@@ -4,7 +4,21 @@ import avatar from "./../../../avatar.png";
 
 import styles from './User.module.css';
 
-export const User = ({ id, photos, name, followed, toggleFollow,followingProcess }) => {
+type Props = {
+    id: number,
+    photos: {
+        small: string,
+    },
+    name: string,
+    followed: boolean,
+    toggleFollow: (id: number, followed: boolean) => void,
+    followingProcess: {
+        userId: number,
+        isInProgress: boolean,
+    },
+};
+
+export const User: React.FC<Props> = ({ id, photos, name, followed, toggleFollow, followingProcess }) => {
     return (
         <div className={styles.userItem} key={id}>
             <NavLink to={`/profile/${id}`}>

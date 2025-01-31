@@ -2,13 +2,13 @@ import React from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import { compose } from "redux";
-import { ProfileInfo } from "./ProfileInfo";
+import { ProfileInfo } from "./ProfileInfo.tsx";
 import { getProfile, getProfileStatus, updateProfileStatus, updateProfilePhoto, updateProfileInfo } from "../../../redux/profileReducer.ts";
 import loader from "./../../../bouncing-circles.svg";
 
 class ProfileInfoSubContainer extends React.Component {
     componentDidMount() {
-        let { userId } = this.props.match.params;
+        let userId = this.props.match.params.userId ? parseInt(this.props.match.params.userId) : this.props.authorizedUserId;
 
         if (!userId) {
             userId = this.props.authorizedUserId;
