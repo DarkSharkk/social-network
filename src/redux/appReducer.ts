@@ -1,14 +1,15 @@
+import { Dispatch } from "redux";
 import { authMe } from "./authReducer.ts";
 
 const INITIALIZE = 'INITIALIZE';
 
+type InitializeSuccessType = { type: typeof INITIALIZE };
+
+type Action = InitializeSuccessType;
+
 type State = {
     isInitialize: boolean;
 };
-
-type Action = {
-    type: typeof INITIALIZE;
-}
 
 const initialState: State = {
     isInitialize: false,
@@ -27,9 +28,9 @@ export const appReducer = (state = initialState, action: Action) => {
     }
 };
 
-const initializeSucess = () => ({ type: INITIALIZE });
+const initializeSuccess = (): InitializeSuccessType => ({ type: INITIALIZE });
 
-export const initializeApp = () => async (dispatch) => {
+export const initializeApp = () => async (dispatch: Dispatch<InitializeSuccessType>) => {
     await dispatch(authMe())
-    dispatch(initializeSucess());
+    dispatch(initializeSuccess());
 };

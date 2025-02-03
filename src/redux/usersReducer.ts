@@ -1,3 +1,4 @@
+import { Dispatch } from "redux";
 import { API } from "../api";
 
 const TOGGLE_SUBSCRIBE = 'TOGGLE_SUBSCRIBE';
@@ -6,14 +7,6 @@ const SET_TOTAL_COUNT = 'SET_TOTAL_COUNT';
 const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE';
 const TOGGLE_IS_FETCHING = 'TOGGLE_IS_FETCHING';
 const TOGGLE_FOLLOW_IN_PROGRESS = 'FOLLOW_IN_PROGRESS';
-
-type ActionType = 
-    | typeof TOGGLE_SUBSCRIBE 
-    | typeof SET_USERS
-    | typeof SET_TOTAL_COUNT
-    | typeof SET_CURRENT_PAGE
-    | typeof TOGGLE_IS_FETCHING
-    | typeof TOGGLE_FOLLOW_IN_PROGRESS;
     
 type State = {
     users: Array<{ id: number, followed: boolean }>,
@@ -24,16 +17,15 @@ type State = {
     followingProcess: { isInProgress: boolean, userId: number | null },
 };
 
-type Action = { 
-    type: ActionType,
-    userId: number,
-    users: State['users'],
-    totalCount: State['totalCount'],
-    pageSize: State['pageSize'],
-    currentPage: State['currentPage'],
-    isFetching: State['isFetching'],
-    followingProcess: State['followingProcess'],
-};
+type TogggleSubscribeType = { type: typeof TOGGLE_SUBSCRIBE, userId: number };
+type SetUsersType = { type: typeof SET_USERS, users: State['users'] };
+type SetTotalCountType = { type: typeof SET_TOTAL_COUNT, totalCount: State['totalCount'] };
+type SetCurrentPageType = { type: typeof SET_CURRENT_PAGE, currentPage: State['currentPage'] };
+type ToggleIsFetchingType = { type: typeof TOGGLE_IS_FETCHING, isFetching: State['isFetching'] };
+type ToggleFollowInProgressType = { type: typeof TOGGLE_FOLLOW_IN_PROGRESS, followingProcess: State["followingProcess"] };
+
+type Action = TogggleSubscribeType | SetUsersType | SetTotalCountType | SetCurrentPageType 
+    | SetCurrentPageType | ToggleIsFetchingType | ToggleFollowInProgressType;
 
 const initialState: State = {
     users: [],
@@ -96,32 +88,32 @@ export const usersReducer = (state = initialState, action: Action): State => {
     }
 };
 
-export const toggleSubscribe = (id: number) => ({
+export const toggleSubscribe = (id: number): TogggleSubscribeType => ({
     type: TOGGLE_SUBSCRIBE, userId: id
 });
 
-export const setUsers = (users: State['users']) => ({
+export const setUsers = (users: State['users']): SetUsersType => ({
     type: SET_USERS, users
 });
 
-export const setTotalCount = (totalCount: State['totalCount']) => ({
+export const setTotalCount = (totalCount: State['totalCount']): SetTotalCountType => ({
     type: SET_TOTAL_COUNT, totalCount
 });
 
-export const setCurrentPage = (currentPage: State['currentPage']) => ({
+export const setCurrentPage = (currentPage: State['currentPage']): SetCurrentPageType => ({
     type: SET_CURRENT_PAGE, currentPage
 });
 
-export const toggleIsFetching = (isFetching: State['isFetching']) => ({
+export const toggleIsFetching = (isFetching: State['isFetching']): ToggleIsFetchingType => ({
     type: TOGGLE_IS_FETCHING, isFetching
 });
 
-export const toggleFollowInProgress = ({ isInProgress, userId }: { isInProgress: boolean, userId: number }) => ({
+export const toggleFollowInProgress = ({ isInProgress, userId }: State["followingProcess"]): ToggleFollowInProgressType => ({
     type: TOGGLE_FOLLOW_IN_PROGRESS, followingProcess: { isInProgress, userId }
 });
 
 export const getUsers = (currentPage: State['currentPage'], pageSize: State['pageSize']) => {
-    return async (dispatch) => {
+    return async (dispatch: Dispatch<Action>) => {
         dispatch(toggleIsFetching(true));
 
         const data = await API.getUsers(currentPage, pageSize);
@@ -137,7 +129,7 @@ export const getUsers = (currentPage: State['currentPage'], pageSize: State['pag
 }
 
 export const toggleFollow = (id: number, followed: boolean) => {
-    return async (dispatch) => {
+    return async (dispatch: Dispatch<Action>) => {
         dispatch(toggleFollowInProgress({isInProgress: true, userId: id}));
 
         if (followed) {

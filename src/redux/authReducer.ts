@@ -1,16 +1,14 @@
 import { stopSubmit } from "redux-form";
 import { API } from "../api";
+import { Dispatch } from "redux";
 
 const SET_USER_DATA = 'SET_USER_DATA';
 const SET_CAPTCHA = 'SET_CAPTCHA';
 
-type ActionType = typeof SET_USER_DATA | typeof SET_CAPTCHA;
+type SetUserDataType = { type: typeof SET_USER_DATA, login: string };
+type SetCaptchaType = { type: typeof SET_CAPTCHA, url: string | null };
 
-type Action = {
-    type: ActionType,
-    login: State['login'],
-    url: State['captchaUrl'],
-};
+type Action = SetUserDataType | SetCaptchaType;
 
 type State = {
     id: number | null,
@@ -48,19 +46,19 @@ export const authReducer = (state = initialState, action: Action) => {
     }
 }
 
-const setUserData = (data: any) => ({ type: SET_USER_DATA, ...data });
+const setUserData = (data: any): SetUserDataType => ({ type: SET_USER_DATA, ...data });
 
-const setCaptcha = (url: State['captchaUrl']) => ({  type: SET_CAPTCHA, url });
+const setCaptcha = (url: State['captchaUrl']): SetCaptchaType => ({  type: SET_CAPTCHA, url });
 
 export const authMe = () => {
-    return async (dispatch) => {
+    return async (dispatch: Dispatch<SetUserDataType>) => {
         const data = await API.authMe();
         dispatch(setUserData(data.data));
     }
 }
 
 export const login = ({ email, password, rememberMe, captcha }: { email: State['email'], password: string, rememberMe: boolean, captcha: State['captchaUrl'] }) => {
-    return async (dispatch) => {
+    return async (dispatch: Dispatch<SetUserDataType>) => {
         const { resultCode, messages } = await API.login({ email, password, rememberMe, captcha });
 
         if (!resultCode) {
@@ -81,7 +79,7 @@ export const login = ({ email, password, rememberMe, captcha }: { email: State['
 };
 
 export const logout = () => {
-    return async (dispatch) => {
+    return async (dispatch: Dispatch<SetUserDataType>) => {
         const { resultCode } = await API.logout()
         
         if (!resultCode) {
@@ -91,7 +89,7 @@ export const logout = () => {
 };
 
 export const getCaptcha = () => {
-    return async (dispatch) => {
+    return async (dispatch: Dispatch<SetCaptchaType>) => {
         const { url } = await API.getCaptcha();
         dispatch(setCaptcha(url));
     }

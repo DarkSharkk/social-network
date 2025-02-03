@@ -1,11 +1,8 @@
 const ADD_DRAFT = 'ADD-DRAFT';
 
-type ActionType = typeof ADD_DRAFT;
+type AddDraftType = { type: typeof ADD_DRAFT, draftText: string };
 
-type Action = {
-    type: ActionType,
-    draftText: string,
-};
+type Action = AddDraftType;
 
 type State = {
     messages: Array<{ id: number, text: string }>
